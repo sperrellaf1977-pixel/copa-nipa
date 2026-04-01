@@ -1,112 +1,145 @@
 export default function Home() {
   const whatsappLink = "https://wa.me/5521993405995";
 
+  const teamStyles = {
+    Brasil: {
+      chip: "text-[#9be37a]",
+      bg: "from-[#0b2d16] via-[#12351d] to-[#4f5b11]",
+      border: "border-[#2f8f4e]/30",
+    },
+    Portugal: {
+      chip: "text-[#ffb36b]",
+      bg: "from-[#0d3a22] via-[#11472a] to-[#6d1b1b]",
+      border: "border-[#2d8a57]/30",
+    },
+    Alemanha: {
+      chip: "text-[#ffd36e]",
+      bg: "from-[#1b1b1b] via-[#3a1010] to-[#6b5413]",
+      border: "border-[#7a5b1f]/30",
+    },
+    Espanha: {
+      chip: "text-[#ffd36e]",
+      bg: "from-[#5b1111] via-[#7b1a1a] to-[#6b5413]",
+      border: "border-[#a13d2d]/30",
+    },
+    Itália: {
+      chip: "text-[#cfeec7]",
+      bg: "from-[#113822] via-[#f2f2f2]/10 to-[#6d1b1b]",
+      border: "border-[#2f8f4e]/25",
+    },
+    Argentina: {
+      chip: "text-[#b8e2ff]",
+      bg: "from-[#0c2b3d] via-[#184d73] to-[#5b6a16]",
+      border: "border-[#3a8ed0]/30",
+    },
+  };
+
   const matches = [
     {
       stage: "Rodada 1",
-      home: "Time 1",
-      away: "Time 2",
+      home: "Brasil",
+      away: "Portugal",
       score: "3 x 1",
       date: "01 de agosto de 2026",
       status: "Finalizado",
     },
     {
       stage: "Rodada 1",
-      home: "Time 3",
-      away: "Time 4",
+      home: "Alemanha",
+      away: "Espanha",
       score: "1 x 1",
       date: "01 de agosto de 2026",
       status: "Finalizado",
     },
     {
       stage: "Rodada 1",
-      home: "Time 5",
-      away: "Time 6",
+      home: "Itália",
+      away: "Argentina",
       score: "2 x 2",
       date: "01 de agosto de 2026",
       status: "Finalizado",
     },
     {
       stage: "Rodada 2",
-      home: "Time 1",
-      away: "Time 3",
+      home: "Brasil",
+      away: "Alemanha",
       date: "08 de agosto de 2026",
       status: "Em breve",
     },
     {
       stage: "Rodada 2",
-      home: "Time 2",
-      away: "Time 5",
+      home: "Portugal",
+      away: "Itália",
       date: "08 de agosto de 2026",
       status: "Em breve",
     },
     {
       stage: "Rodada 2",
-      home: "Time 4",
-      away: "Time 6",
+      home: "Espanha",
+      away: "Argentina",
       date: "08 de agosto de 2026",
       status: "Em breve",
     },
     {
       stage: "Rodada 3",
-      home: "Time 1",
-      away: "Time 4",
+      home: "Brasil",
+      away: "Espanha",
       date: "15 de agosto de 2026",
       status: "Em breve",
     },
     {
       stage: "Rodada 3",
-      home: "Time 2",
-      away: "Time 6",
+      home: "Portugal",
+      away: "Argentina",
       date: "15 de agosto de 2026",
       status: "Em breve",
     },
     {
       stage: "Rodada 3",
-      home: "Time 3",
-      away: "Time 5",
+      home: "Alemanha",
+      away: "Itália",
       date: "15 de agosto de 2026",
       status: "Em breve",
     },
     {
       stage: "Rodada 4",
-      home: "Time 1",
-      away: "Time 5",
+      home: "Brasil",
+      away: "Itália",
       date: "22 de agosto de 2026",
       status: "Em breve",
     },
     {
       stage: "Rodada 4",
-      home: "Time 2",
-      away: "Time 3",
+      home: "Portugal",
+      away: "Alemanha",
       date: "22 de agosto de 2026",
       status: "Em breve",
     },
     {
       stage: "Rodada 4",
-      home: "Time 4",
-      away: "Time 6",
+      home: "Espanha",
+      away: "Argentina",
       date: "22 de agosto de 2026",
       status: "Em breve",
     },
     {
       stage: "Rodada 5",
-      home: "Time 1",
-      away: "Time 6",
+      home: "Brasil",
+      away: "Argentina",
       date: "29 de agosto de 2026",
       status: "Em breve",
     },
     {
       stage: "Rodada 5",
-      home: "Time 2",
-      away: "Time 4",
+      home: "Portugal",
+      away: "Espanha",
       date: "29 de agosto de 2026",
       status: "Em breve",
     },
     {
       stage: "Rodada 5",
-      home: "Time 3",
-      away: "Time 5",
+      home: "Alemanha",
+      away: "Itália",
       date: "29 de agosto de 2026",
       status: "Em breve",
     },
@@ -134,12 +167,12 @@ export default function Home() {
   ];
 
   const standings = [
-    { team: "Time 1", pts: 3, pj: 1, vit: 1, emp: 0, der: 0, sg: 2 },
-    { team: "Time 3", pts: 1, pj: 1, vit: 0, emp: 1, der: 0, sg: 0 },
-    { team: "Time 4", pts: 1, pj: 1, vit: 0, emp: 1, der: 0, sg: 0 },
-    { team: "Time 5", pts: 1, pj: 1, vit: 0, emp: 1, der: 0, sg: 0 },
-    { team: "Time 6", pts: 1, pj: 1, vit: 0, emp: 1, der: 0, sg: 0 },
-    { team: "Time 2", pts: 0, pj: 1, vit: 0, emp: 0, der: 1, sg: -2 },
+    { team: "Brasil", pts: 3, pj: 1, vit: 1, emp: 0, der: 0, sg: 2 },
+    { team: "Alemanha", pts: 1, pj: 1, vit: 0, emp: 1, der: 0, sg: 0 },
+    { team: "Espanha", pts: 1, pj: 1, vit: 0, emp: 1, der: 0, sg: 0 },
+    { team: "Itália", pts: 1, pj: 1, vit: 0, emp: 1, der: 0, sg: 0 },
+    { team: "Argentina", pts: 1, pj: 1, vit: 0, emp: 1, der: 0, sg: 0 },
+    { team: "Portugal", pts: 0, pj: 1, vit: 0, emp: 0, der: 1, sg: -2 },
   ];
 
   const awards = [
@@ -206,6 +239,13 @@ export default function Home() {
     { title: "Finais", subtitle: "Semifinais e grande decisão" },
   ];
 
+  const getTeamStyle = (team) =>
+    teamStyles[team] || {
+      chip: "text-[#b8e2ff]",
+      bg: "from-[#0b1a2a] via-[#0e2234] to-[#05070b]",
+      border: "border-white/10",
+    };
+
   return (
     <div className="min-h-screen bg-[#05070b] text-white">
       <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(15,110,180,0.18),transparent_22%),radial-gradient(circle_at_85%_20%,rgba(25,160,90,0.10),transparent_20%),linear-gradient(180deg,#071018_0%,#05070b_55%,#04060a_100%)]" />
@@ -255,7 +295,7 @@ export default function Home() {
           </div>
 
           <div className="mb-5 inline-flex rounded-full border border-[#1a8ad8]/30 bg-[#1a8ad8]/10 px-4 py-2 text-sm text-[#b8e2ff]">
-            Copa Nipa 2026 • 6 times • 7 sábados • Barra da Tijuca
+            Copa Nipa 2026 • 6 seleções • 7 sábados • Barra da Tijuca
           </div>
 
           <h1 className="max-w-5xl text-5xl font-black uppercase leading-[0.95] tracking-[-0.05em] sm:text-6xl lg:text-7xl">
@@ -319,29 +359,40 @@ export default function Home() {
           </div>
 
           <div className="grid gap-4">
-            {matches.map((match, index) => (
-              <div
-                key={index}
-                className="rounded-xl border border-white/10 bg-gradient-to-r from-[#0b1a2a] to-[#05070b] p-5"
-              >
-                <div className="flex justify-between text-sm text-[#1a8ad8]">
-                  <span>{match.stage}</span>
-                  <span className="text-white/50">{match.date}</span>
-                </div>
+            {matches.map((match, index) => {
+              const homeStyle = getTeamStyle(match.home);
+              const awayStyle = getTeamStyle(match.away);
 
-                <div className="mt-4 flex justify-between text-lg font-bold">
-                  <span>{match.home}</span>
-                  <span className="text-xl text-[#1a8ad8]">
-                    {match.score || "VS"}
-                  </span>
-                  <span>{match.away}</span>
-                </div>
+              return (
+                <div
+                  key={index}
+                  className={`rounded-xl border ${homeStyle.border} bg-gradient-to-r ${homeStyle.bg} p-5 shadow-[0_10px_30px_rgba(0,0,0,0.25)]`}
+                >
+                  <div className="flex justify-between text-sm">
+                    <span className={`font-semibold ${homeStyle.chip}`}>{match.stage}</span>
+                    <span className="text-white/50">{match.date}</span>
+                  </div>
 
-                <div className="mt-3 text-xs text-white/50">
-                  {match.status}
+                  <div className="mt-4 grid items-center gap-4 md:grid-cols-[1fr_auto_1fr]">
+                    <div className={`rounded-2xl border border-white/10 bg-black/20 px-4 py-4 text-lg font-bold ${homeStyle.chip}`}>
+                      {match.home}
+                    </div>
+
+                    <div className="text-center text-xl font-black text-white">
+                      {match.score || "VS"}
+                    </div>
+
+                    <div className={`rounded-2xl border border-white/10 bg-black/20 px-4 py-4 text-right text-lg font-bold ${awayStyle.chip}`}>
+                      {match.away}
+                    </div>
+                  </div>
+
+                  <div className="mt-3 text-xs text-white/50">
+                    {match.status}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 
