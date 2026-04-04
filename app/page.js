@@ -1,3 +1,4 @@
+import RegistrationForm from "../components/RegistrationForm";
 export default function Home() {
   const whatsappLink = "https://wa.me/5521993405995";
 
@@ -533,41 +534,8 @@ export default function Home() {
                   Posições: ataque • meio • defesa • lateral • goleiro
                 </div>
               </div>
-
-              <form className="grid gap-4">
-                <input
-                  className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm outline-none placeholder:text-white/35"
-                  placeholder="Nome completo"
-                />
-                <input
-                  className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm outline-none placeholder:text-white/35"
-                  placeholder="Telefone / WhatsApp"
-                />
-                <input
-                  className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm outline-none placeholder:text-white/35"
-                  placeholder="Idade"
-                />
-                <select className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white/70 outline-none">
-                  <option>Posição preferida</option>
-                  <option>Ataque</option>
-                  <option>Meio</option>
-                  <option>Defesa</option>
-                  <option>Lateral</option>
-                  <option>Goleiro</option>
-                </select>
-                <textarea
-                  className="min-h-[120px] rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm outline-none placeholder:text-white/35"
-                  placeholder="Observações"
-                />
-                <a
-                  href={whatsappLink}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-2xl bg-[#1a8ad8] px-6 py-3 text-center text-sm font-semibold text-white transition hover:scale-[1.01]"
-                >
-                  Enviar inscrição
-                </a>
-              </form>
+<RegistrationForm />
+               
             </div>
           </div>
         </section>
