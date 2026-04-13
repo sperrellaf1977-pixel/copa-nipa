@@ -10,9 +10,9 @@ export async function POST(req) {
     );
 
     // Extrair nome do arquivo da URL
-    const fileName = image_url.split("/gallery/")[1];
+    const fileName = image_url.split("/Gallery/")[1];
     if (fileName) {
-      await supabase.storage.from("gallery").remove([fileName]);
+      await supabase.storage.from("Gallery").remove([fileName]);
     }
 
     const { error } = await supabase.from("gallery").delete().eq("id", id);

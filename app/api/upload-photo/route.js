@@ -21,7 +21,7 @@ export async function POST(req) {
     const fileName = `${Date.now()}-${file.name.replace(/\s/g, "_")}`;
 
     const { error: uploadError } = await supabase.storage
-      .from("gallery")
+      .from("Gallery")
       .upload(fileName, buffer, { contentType: file.type });
 
     if (uploadError) {
@@ -29,7 +29,7 @@ export async function POST(req) {
     }
 
     const { data: urlData } = supabase.storage
-      .from("gallery")
+      .from("Gallery")
       .getPublicUrl(fileName);
 
     const { error: dbError } = await supabase.from("gallery").insert([
@@ -49,3 +49,4 @@ export async function POST(req) {
     return Response.json({ error: "Erro ao fazer upload" }, { status: 500 });
   }
 }
+
