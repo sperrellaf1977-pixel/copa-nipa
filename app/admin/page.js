@@ -101,6 +101,15 @@ function TabInscricoes() {
   }
 
   async function updateRating(item, rating) {
+    const newRating = item.rating === rating ? null : rating;
+    await fetch("/api/update-rating", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: item.id, rating: newRating }),
+    });
+    load();
+  }
+
+  async function updateRating(item, rating) {
     await fetch("/api/update-rating", {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: item.id, rating }),
@@ -138,7 +147,21 @@ function TabInscricoes() {
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
                   <div className="font-bold">{r.full_name}</div>
-                  <div className="mt-1 text-sm text-white/50">{r.phone} {r.age ? `• ${r.age} anos` : ""} {r.preferred_position ? `• ${r.preferred_position}` : ""}</div>
+                  <div className="mt-1 text-sm text-white/50">
+                    {r.phone} {r.age ? `• ${r.age} anos` : ""} {r.preferred_position ? `• ${r.preferred_position}` : ""}
+                  </div>
+                  <div className="mt-1.5 flex flex-wrap gap-2">
+                    {r.resident_type && (
+                      <span className="rounded-full border border-blue-500/30 bg-blue-500/10 px-2 py-0.5 text-xs text-blue-400">
+                        {r.resident_type}
+                      </span>
+                    )}
+                    {r.pelada_frequency && (
+                      <span className="rounded-full border border-green-500/30 bg-green-500/10 px-2 py-0.5 text-xs text-green-400">
+                        Pelada: {r.pelada_frequency}
+                      </span>
+                    )}
+                  </div>
                   {r.notes && <div className="mt-1 text-xs text-white/40 italic">{r.notes}</div>}
                 </div>
                 <button onClick={() => togglePayment(r)} className={`rounded-xl px-3 py-1.5 text-xs font-semibold ${statusColor(r.payment_status || "pendente")}`}>
