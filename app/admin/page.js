@@ -109,13 +109,7 @@ function TabInscricoes() {
     load();
   }
 
-  async function updateRating(item, rating) {
-    await fetch("/api/update-rating", {
-      method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: item.id, rating }),
-    });
-    load();
-  }
+
 
   const filtered = registrations.filter((r) =>
     r.full_name?.toLowerCase().includes(search.toLowerCase()) || r.phone?.includes(search)
@@ -488,8 +482,7 @@ function TabTimes() {
 
       {/* Aviso */}
       <div className="mb-6 rounded-2xl border border-yellow-500/20 bg-yellow-500/[0.05] p-4 text-sm text-yellow-300">
-        ⚠️ Apenas inscritos com <strong>pagamento confirmado</strong> e <strong>nota definida</strong> serão distribuídos.
-        Inscritos sem nota receberão nota 3 (média) por padrão.
+        ⚠️ Todos os inscritos serão distribuídos. Inscritos sem nota receberão nota 3 (média) por padrão.
       </div>
 
       {/* Botões */}
