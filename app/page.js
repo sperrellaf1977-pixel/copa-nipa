@@ -34,15 +34,21 @@ function calcStandings(matches) {
     .map((t) => ({ ...t, sg: t.gp - t.gc }));
 }
 
-const teamStyles = {
-  Brasil:    { chip: "text-[#86efac]",  bg: "from-[#052e16] to-[#14532d]",  border: "border-[#166534]/50", flag: "🇧🇷" },
-  Portugal:  { chip: "text-[#fca5a5]",  bg: "from-[#450a0a] to-[#7f1d1d]",  border: "border-[#991b1b]/50", flag: "🇵🇹" },
-  Alemanha:  { chip: "text-[#fde68a]",  bg: "from-[#1c1917] to-[#292524]",  border: "border-[#78716c]/50", flag: "🇩🇪" },
-  Espanha:   { chip: "text-[#fca5a5]",  bg: "from-[#450a0a] to-[#92400e]",  border: "border-[#b91c1c]/50", flag: "🇪🇸" },
-  "Itália":  { chip: "text-[#bfdbfe]",  bg: "from-[#0c1445] to-[#1e3a8a]",  border: "border-[#1d4ed8]/50", flag: "🇮🇹" },
-  Argentina: { chip: "text-[#bae6fd]",  bg: "from-[#082f49] to-[#0c4a6e]",  border: "border-[#0284c7]/50", flag: "🇦🇷" },
+const teamFlags = {
+  Brasil: "🇧🇷", Portugal: "🇵🇹", Alemanha: "🇩🇪",
+  Espanha: "🇪🇸", "Itália": "🇮🇹", Argentina: "🇦🇷",
 };
-const getTeamStyle = (team) => teamStyles[team] || { chip: "text-white/70", bg: "from-[#0f172a] to-[#1e293b]", border: "border-white/10", flag: "⚽" };
+
+const teamColors = {
+  Brasil:    { text: "text-green-400",  bg: "bg-green-950",   border: "border-green-800" },
+  Portugal:  { text: "text-red-400",    bg: "bg-red-950",     border: "border-red-800" },
+  Alemanha:  { text: "text-yellow-400", bg: "bg-stone-900",   border: "border-stone-700" },
+  Espanha:   { text: "text-orange-400", bg: "bg-red-950",     border: "border-orange-800" },
+  "Itália":  { text: "text-blue-400",   bg: "bg-blue-950",    border: "border-blue-800" },
+  Argentina: { text: "text-sky-400",    bg: "bg-sky-950",     border: "border-sky-800" },
+};
+const getTeam = (t) => teamColors[t] || { text: "text-white/70", bg: "bg-slate-900", border: "border-slate-700" };
+const getFlag = (t) => teamFlags[t] || "⚽";
 
 const awards = [
   { title: "Craque de cada jogo", icon: "⭐" },
@@ -50,13 +56,6 @@ const awards = [
   { title: "Artilheiro", icon: "⚽" },
   { title: "Melhor goleiro", icon: "🧤" },
   { title: "Craque do torneio", icon: "🏆" },
-];
-
-const sponsorPlans = [
-  { name: "Naming Rights", price: "R$ 10.000", subtitle: "1 cota disponível", highlight: "Cota principal", icon: "👑",
-    features: ["A marca dá nome oficial ao torneio", "Exemplo: Copa Nipa + nome da marca", "Maior exposição em toda a comunicação", "Presença no site oficial e nas mídias", "Associação direta à identidade do evento", "Possibilidade de ativações especiais"] },
-  { name: "Patrocínio de Time", price: "R$ 4.000", subtitle: "6 cotas disponíveis", highlight: "Uma marca por equipe", icon: "🎽",
-    features: ["Patrocínio exclusivo de uma das 6 equipes", "Marca na parte frontal do uniforme", "Associação direta à equipe no torneio", "Presença nas mídias oficiais da equipe", "Exposição recorrente ao longo das rodadas", "Proximidade com o público do condomínio"] },
 ];
 
 const confirmedPartners = ["Coco Bambu", "Marcio Bittencourt Sports", "JOMA", "Mitre"];
@@ -67,6 +66,12 @@ const brandBenefits = [
   "Publicidade no entorno do campo por até 3 meses",
   "Possibilidade de ativação com a base do condomínio",
   "Associação ao torneio mais tradicional de society da Barra",
+];
+const sponsorPlans = [
+  { name: "Naming Rights", price: "R$ 10.000", subtitle: "1 cota disponível", highlight: "Cota principal", icon: "👑",
+    features: ["A marca dá nome oficial ao torneio", "Exemplo: Copa Nipa + nome da marca", "Maior exposição em toda a comunicação", "Presença no site oficial e nas mídias", "Associação direta à identidade do evento", "Possibilidade de ativações especiais"] },
+  { name: "Patrocínio de Time", price: "R$ 4.000", subtitle: "6 cotas disponíveis", highlight: "Uma marca por equipe", icon: "🎽",
+    features: ["Patrocínio exclusivo de uma das 6 equipes", "Marca na parte frontal do uniforme", "Associação direta à equipe no torneio", "Presença nas mídias oficiais da equipe", "Exposição recorrente ao longo das rodadas", "Proximidade com o público do condomínio"] },
 ];
 
 export const revalidate = 0;
@@ -84,33 +89,25 @@ export default async function Home() {
   const galleryRounds = Object.values(galleryByRound);
 
   return (
-    <div className="min-h-screen text-white" style={{ background: "linear-gradient(160deg, #0a0f1e 0%, #0d1428 40%, #0a0e1a 100%)" }}>
-
-      {/* Fundo decorativo */}
-      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-        <div style={{ position: "absolute", top: "-20%", right: "-10%", width: "600px", height: "600px", background: "radial-gradient(circle, rgba(249,115,22,0.08) 0%, transparent 70%)" }} />
-        <div style={{ position: "absolute", bottom: "10%", left: "-10%", width: "500px", height: "500px", background: "radial-gradient(circle, rgba(30,64,175,0.12) 0%, transparent 70%)" }} />
-        <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
-      </div>
+    <div className="min-h-screen bg-[#0a0e1a] text-white">
+      <div className="fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,rgba(249,115,22,0.08),transparent_50%),radial-gradient(ellipse_at_bottom_left,rgba(30,64,175,0.1),transparent_50%)]" />
 
       {/* NAVBAR */}
-      <nav style={{ borderBottom: "1px solid rgba(249,115,22,0.15)", background: "rgba(10,14,26,0.85)", backdropFilter: "blur(20px)", position: "sticky", top: 0, zIndex: 50 }}>
+      <nav className="sticky top-0 z-50 border-b border-orange-500/10 bg-[#0a0e1a]/90 backdrop-blur-xl">
         <div className="mx-auto max-w-7xl px-6 py-4">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex items-center gap-4">
-              <div style={{ background: "linear-gradient(135deg, rgba(249,115,22,0.2), rgba(30,64,175,0.2))", border: "2px solid rgba(249,115,22,0.3)", borderRadius: "14px", padding: "4px" }}>
+              <div className="rounded-2xl border-2 border-orange-500/30 bg-orange-500/10 p-1">
                 <img src="/logo-nipa.png" alt="Nova Ipanema" className="h-12 w-12 rounded-xl object-contain" />
               </div>
               <div>
-                <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.3em", color: "rgba(249,115,22,0.7)", textTransform: "uppercase" }}>Nova Ipanema</div>
-                <div style={{ fontSize: "20px", fontWeight: 900, letterSpacing: "-0.02em", background: "linear-gradient(90deg, #fff 60%, rgba(249,115,22,0.8))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                  Copa Nipa 2026
-                </div>
+                <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-orange-500/70">Nova Ipanema</div>
+                <div className="text-xl font-black tracking-tight">Copa Nipa 2026</div>
               </div>
             </div>
             <div className="flex flex-wrap gap-2">
               {[["jogos","Jogos"],["classificacao","Classificação"],["premiacoes","Premiações"],["galeria","Galeria"],["inscricao","Inscrição"],["patrocinadores","Patrocinadores"]].map(([id, label]) => (
-                <a key={id} href={`#${id}`} style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: "999px", padding: "6px 16px", fontSize: "13px", color: "rgba(255,255,255,0.6)" }}>
+                <a key={id} href={`#${id}`} className="rounded-full border border-white/10 px-4 py-2 text-sm text-white/60 transition hover:border-orange-500/40 hover:text-white">
                   {label}
                 </a>
               ))}
@@ -123,39 +120,39 @@ export default async function Home() {
 
         {/* HERO */}
         <section className="mb-20">
-          <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(249,115,22,0.1)", border: "1px solid rgba(249,115,22,0.3)", borderRadius: "999px", padding: "6px 16px", marginBottom: "24px" }}>
-            <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#f97316", display: "inline-block", boxShadow: "0 0 8px #f97316" }} />
-            <span style={{ fontSize: "13px", color: "#fb923c", fontWeight: 600 }}>Copa Nipa 2026 • 6 seleções • 7 sábados • Barra da Tijuca</span>
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-2">
+            <span className="h-2 w-2 rounded-full bg-orange-500" />
+            <span className="text-sm font-semibold text-orange-400">Copa Nipa 2026 • 6 seleções • 7 sábados • Barra da Tijuca</span>
           </div>
 
-          <h1 style={{ fontSize: "clamp(42px, 7vw, 80px)", fontWeight: 900, lineHeight: 0.95, letterSpacing: "-0.04em", marginBottom: "24px" }}>
+          <h1 className="mb-6 max-w-4xl text-5xl font-black leading-[0.95] tracking-[-0.04em] lg:text-7xl">
             O melhor torneio<br />
-            <span style={{ background: "linear-gradient(90deg, #f97316, #fb923c)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>de futebol society</span><br />
+            <span className="text-orange-500">de futebol society</span><br />
             da Barra da Tijuca
           </h1>
 
-          <p style={{ maxWidth: "580px", fontSize: "17px", lineHeight: 1.8, color: "rgba(255,255,255,0.6)", marginBottom: "36px" }}>
+          <p className="mb-10 max-w-xl text-lg leading-relaxed text-white/60">
             A Copa Nipa nasce com posicionamento forte, visual moderno e espírito competitivo.
             Um campeonato com identidade própria e calendário definido.
           </p>
 
-          <div className="flex flex-wrap gap-3 mb-14">
-            <a href="#inscricao" style={{ background: "linear-gradient(135deg, #f97316, #ea580c)", borderRadius: "14px", padding: "13px 28px", fontSize: "14px", fontWeight: 700, color: "#fff", textDecoration: "none", boxShadow: "0 8px 32px rgba(249,115,22,0.35)" }}>
+          <div className="mb-14 flex flex-wrap gap-3">
+            <a href="#inscricao" className="rounded-2xl bg-orange-500 px-7 py-3.5 text-sm font-bold text-white shadow-[0_8px_32px_rgba(249,115,22,0.35)] transition hover:bg-orange-600">
               Fazer inscrição
             </a>
-            <a href="#patrocinadores" style={{ border: "1px solid rgba(255,255,255,0.12)", borderRadius: "14px", padding: "13px 28px", fontSize: "14px", fontWeight: 600, color: "rgba(255,255,255,0.8)", textDecoration: "none", background: "rgba(255,255,255,0.03)" }}>
+            <a href="#patrocinadores" className="rounded-2xl border border-white/10 bg-white/[0.03] px-7 py-3.5 text-sm font-semibold text-white/80 transition hover:bg-white/[0.06]">
               Seja patrocinador
             </a>
-            <a href={whatsappLink} target="_blank" rel="noreferrer" style={{ border: "1px solid rgba(37,211,102,0.3)", borderRadius: "14px", padding: "13px 28px", fontSize: "14px", fontWeight: 600, color: "rgba(255,255,255,0.8)", textDecoration: "none", background: "rgba(37,211,102,0.08)" }}>
+            <a href={whatsappLink} target="_blank" rel="noreferrer" className="rounded-2xl border border-green-500/30 bg-green-500/10 px-7 py-3.5 text-sm font-semibold text-white/80 transition hover:bg-green-500/20">
               💬 WhatsApp
             </a>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-3">
-            {[["7", "sábados de competição", "#f97316"], ["R$ 120", "inscrição com uniforme", "#22c55e"], ["Top 4", "avançam para semifinal", "#3b82f6"]].map(([v, l, c]) => (
-              <div key={l} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "20px", padding: "24px", borderTop: `3px solid ${c}` }}>
-                <div style={{ fontSize: "32px", fontWeight: 900, color: c }}>{v}</div>
-                <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.5)", marginTop: "6px" }}>{l}</div>
+            {[["7","sábados de competição","border-t-orange-500"],["R$ 120","inscrição com uniforme","border-t-green-500"],["Top 4","avançam para semifinal","border-t-blue-500"]].map(([v,l,c]) => (
+              <div key={l} className={`rounded-2xl border border-white/7 bg-white/[0.02] p-6 border-t-2 ${c}`}>
+                <div className="text-3xl font-black text-white">{v}</div>
+                <div className="mt-2 text-sm text-white/50">{l}</div>
               </div>
             ))}
           </div>
@@ -164,31 +161,32 @@ export default async function Home() {
         {/* JOGOS */}
         <section id="jogos" className="mb-20">
           <div className="mb-8">
-            <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.3em", color: "rgba(249,115,22,0.7)", textTransform: "uppercase", marginBottom: "8px" }}>Jogos</div>
-            <h2 style={{ fontSize: "32px", fontWeight: 800, letterSpacing: "-0.02em" }}>Calendário oficial</h2>
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-orange-500/70">Jogos</p>
+            <h2 className="mt-2 text-3xl font-black tracking-tight">Calendário oficial</h2>
           </div>
           <div className="grid gap-3">
             {matches.map((match) => {
-              const hs = getTeamStyle(match.home_team);
-              const as_ = getTeamStyle(match.away_team);
-              const score = match.home_score !== null && match.away_score !== null ? `${match.home_score} x ${match.away_score}` : "VS";
+              const ht = getTeam(match.home_team);
+              const at = getTeam(match.away_team);
               const done = match.status === "Finalizado";
+              const score = match.home_score !== null && match.away_score !== null
+                ? `${match.home_score} x ${match.away_score}` : "VS";
               return (
-                <div key={match.id} style={{ background: `linear-gradient(135deg, ${done ? "rgba(249,115,22,0.05)" : "rgba(255,255,255,0.02)"}, rgba(255,255,255,0.01))`, border: `1px solid ${done ? "rgba(249,115,22,0.2)" : "rgba(255,255,255,0.06)"}`, borderRadius: "16px", padding: "16px 20px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "12px" }}>
-                    <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.15em", color: done ? "#fb923c" : "rgba(255,255,255,0.35)", textTransform: "uppercase" }}>{match.stage}</span>
-                    <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.35)" }}>{match.match_date}</span>
+                <div key={match.id} className={`rounded-2xl border p-5 ${done ? "border-orange-500/20 bg-orange-500/[0.04]" : "border-white/6 bg-white/[0.02]"}`}>
+                  <div className="mb-3 flex justify-between text-xs">
+                    <span className={`font-bold uppercase tracking-wider ${done ? "text-orange-400" : "text-white/30"}`}>{match.stage}</span>
+                    <span className="text-white/30">{match.match_date}</span>
                   </div>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", gap: "12px" }}>
-                    <div style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "12px", padding: "12px 16px", fontSize: "16px", fontWeight: 800, color: hs.chip }}>
-                      {hs.flag} {match.home_team}
+                  <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
+                    <div className={`rounded-xl border px-4 py-3 text-base font-bold ${ht.bg} ${ht.border} ${ht.text}`}>
+                      {getFlag(match.home_team)} {match.home_team}
                     </div>
-                    <div style={{ textAlign: "center", fontSize: done ? "22px" : "16px", fontWeight: 900, color: done ? "#f97316" : "rgba(255,255,255,0.3)", minWidth: "60px" }}>{score}</div>
-                    <div style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "12px", padding: "12px 16px", fontSize: "16px", fontWeight: 800, color: as_.chip, textAlign: "right" }}>
-                      {match.away_team} {as_.flag}
+                    <div className={`min-w-[56px] text-center text-xl font-black ${done ? "text-orange-400" : "text-white/25"}`}>{score}</div>
+                    <div className={`rounded-xl border px-4 py-3 text-base font-bold text-right ${at.bg} ${at.border} ${at.text}`}>
+                      {match.away_team} {getFlag(match.away_team)}
                     </div>
                   </div>
-                  <div style={{ marginTop: "10px", fontSize: "11px", color: done ? "rgba(249,115,22,0.6)" : "rgba(255,255,255,0.25)" }}>{match.status}</div>
+                  <p className={`mt-2 text-xs ${done ? "text-orange-500/50" : "text-white/20"}`}>{match.status}</p>
                 </div>
               );
             })}
@@ -198,52 +196,54 @@ export default async function Home() {
         {/* CLASSIFICAÇÃO */}
         <section id="classificacao" className="mb-20">
           <div className="mb-8">
-            <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.3em", color: "rgba(249,115,22,0.7)", textTransform: "uppercase", marginBottom: "8px" }}>Classificação</div>
-            <h2 style={{ fontSize: "32px", fontWeight: 800, letterSpacing: "-0.02em" }}>Tabela geral</h2>
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-orange-500/70">Classificação</p>
+            <h2 className="mt-2 text-3xl font-black tracking-tight">Tabela geral</h2>
           </div>
-          <div style={{ overflow: "hidden", borderRadius: "20px", border: "1px solid rgba(255,255,255,0.07)", background: "rgba(255,255,255,0.02)" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px" }}>
-              <thead>
-                <tr style={{ background: "rgba(249,115,22,0.08)", borderBottom: "1px solid rgba(249,115,22,0.15)" }}>
-                  {["#", "Time", "PTS", "PJ", "VIT", "EMP", "DER", "SG"].map((h) => (
-                    <th key={h} style={{ padding: "14px 16px", textAlign: "left", fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", color: "rgba(249,115,22,0.7)", textTransform: "uppercase" }}>{h}</th>
+          <div className="overflow-hidden rounded-2xl border border-white/7 bg-white/[0.02]">
+            <table className="w-full text-left text-sm">
+              <thead className="border-b border-orange-500/15 bg-orange-500/[0.05]">
+                <tr>
+                  {["#","Time","PTS","PJ","VIT","EMP","DER","SG"].map((h) => (
+                    <th key={h} className="px-4 py-4 text-xs font-bold uppercase tracking-wider text-orange-500/60">{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {standings.map((row, i) => (
-                  <tr key={row.team} style={{ borderTop: "1px solid rgba(255,255,255,0.04)", background: i < 4 ? "rgba(249,115,22,0.04)" : "transparent" }}>
-                    <td style={{ padding: "14px 16px", fontWeight: 700, color: i < 4 ? "#f97316" : "rgba(255,255,255,0.4)" }}>{i + 1}</td>
-                    <td style={{ padding: "14px 16px", fontWeight: 700 }}>
-                      {getTeamStyle(row.team).flag} {row.team}
-                      {i < 4 && <span style={{ marginLeft: "8px", fontSize: "10px", background: "rgba(249,115,22,0.15)", color: "#fb923c", border: "1px solid rgba(249,115,22,0.3)", borderRadius: "999px", padding: "2px 8px" }}>↑ Semi</span>}
+                  <tr key={row.team} className={`border-t border-white/[0.04] ${i < 4 ? "bg-orange-500/[0.03]" : ""}`}>
+                    <td className={`px-4 py-4 font-bold ${i < 4 ? "text-orange-400" : "text-white/30"}`}>{i + 1}</td>
+                    <td className="px-4 py-4 font-semibold">
+                      {getFlag(row.team)} {row.team}
+                      {i < 4 && <span className="ml-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-2 py-0.5 text-[10px] text-orange-400">↑ Semi</span>}
                     </td>
-                    <td style={{ padding: "14px 16px", fontWeight: 900, color: "#f97316", fontSize: "16px" }}>{row.pts}</td>
-                    <td style={{ padding: "14px 16px", color: "rgba(255,255,255,0.6)" }}>{row.pj}</td>
-                    <td style={{ padding: "14px 16px", color: "#86efac" }}>{row.vit}</td>
-                    <td style={{ padding: "14px 16px", color: "rgba(255,255,255,0.5)" }}>{row.emp}</td>
-                    <td style={{ padding: "14px 16px", color: "#fca5a5" }}>{row.der}</td>
-                    <td style={{ padding: "14px 16px", color: row.sg > 0 ? "#86efac" : row.sg < 0 ? "#fca5a5" : "rgba(255,255,255,0.5)", fontWeight: 700 }}>{row.sg > 0 ? `+${row.sg}` : row.sg}</td>
+                    <td className="px-4 py-4 text-lg font-black text-orange-400">{row.pts}</td>
+                    <td className="px-4 py-4 text-white/50">{row.pj}</td>
+                    <td className="px-4 py-4 text-green-400">{row.vit}</td>
+                    <td className="px-4 py-4 text-white/40">{row.emp}</td>
+                    <td className="px-4 py-4 text-red-400">{row.der}</td>
+                    <td className={`px-4 py-4 font-bold ${row.sg > 0 ? "text-green-400" : row.sg < 0 ? "text-red-400" : "text-white/40"}`}>
+                      {row.sg > 0 ? `+${row.sg}` : row.sg}
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p style={{ marginTop: "12px", fontSize: "13px", color: "rgba(255,255,255,0.35)" }}>Os 4 primeiros avançam para as semifinais.</p>
+          <p className="mt-3 text-sm text-white/30">Os 4 primeiros avançam para as semifinais.</p>
         </section>
 
         {/* PREMIAÇÕES */}
         <section id="premiacoes" className="mb-20">
           <div className="mb-8">
-            <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.3em", color: "rgba(249,115,22,0.7)", textTransform: "uppercase", marginBottom: "8px" }}>Premiações</div>
-            <h2 style={{ fontSize: "32px", fontWeight: 800, letterSpacing: "-0.02em" }}>Destaques do torneio</h2>
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-orange-500/70">Premiações</p>
+            <h2 className="mt-2 text-3xl font-black tracking-tight">Destaques do torneio</h2>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {awards.map((award) => (
-              <div key={award.title} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "20px", padding: "24px", textAlign: "center", transition: "all 0.2s" }}>
-                <div style={{ fontSize: "32px", marginBottom: "12px" }}>{award.icon}</div>
-                <div style={{ fontSize: "14px", fontWeight: 700, color: "#fff" }}>{award.title}</div>
-                <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)", marginTop: "6px" }}>Acompanhamento durante o torneio</div>
+              <div key={award.title} className="rounded-2xl border border-white/7 bg-white/[0.02] p-6 text-center">
+                <div className="mb-3 text-3xl">{award.icon}</div>
+                <div className="text-sm font-bold">{award.title}</div>
+                <div className="mt-2 text-xs text-white/40">Acompanhamento durante o torneio</div>
               </div>
             ))}
           </div>
@@ -252,19 +252,19 @@ export default async function Home() {
         {/* GALERIA */}
         <section id="galeria" className="mb-20">
           <div className="mb-8">
-            <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.3em", color: "rgba(249,115,22,0.7)", textTransform: "uppercase", marginBottom: "8px" }}>Galeria</div>
-            <h2 style={{ fontSize: "32px", fontWeight: 800, letterSpacing: "-0.02em" }}>Fotos e melhores momentos</h2>
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-orange-500/70">Galeria</p>
+            <h2 className="mt-2 text-3xl font-black tracking-tight">Fotos e melhores momentos</h2>
           </div>
           {galleryRounds.length === 0 ? (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {["Rodada 1","Rodada 2","Rodada 3","Rodada 4","Rodada 5","Finais"].map((title, i) => (
-                <div key={title} style={{ overflow: "hidden", borderRadius: "20px", border: "1px solid rgba(255,255,255,0.07)", background: "rgba(255,255,255,0.02)" }}>
-                  <div style={{ height: "200px", background: `linear-gradient(135deg, rgba(249,115,22,0.${i % 2 === 0 ? "08" : "05"}), rgba(30,64,175,0.1))`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <span style={{ fontSize: "48px", opacity: 0.3 }}>📸</span>
+                <div key={title} className="overflow-hidden rounded-2xl border border-white/7 bg-white/[0.02]">
+                  <div className="flex h-48 items-center justify-center bg-gradient-to-br from-orange-500/5 to-blue-900/10">
+                    <span className="text-5xl opacity-20">📸</span>
                   </div>
-                  <div style={{ padding: "16px 20px" }}>
-                    <div style={{ fontWeight: 700, fontSize: "15px" }}>{title}</div>
-                    <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.35)", marginTop: "4px", fontStyle: "italic" }}>Fotos em breve</div>
+                  <div className="p-5">
+                    <div className="font-bold">{title}</div>
+                    <div className="mt-1 text-sm italic text-white/30">Fotos em breve</div>
                   </div>
                 </div>
               ))}
@@ -272,15 +272,14 @@ export default async function Home() {
           ) : (
             galleryRounds.map((round) => (
               <div key={round.title} className="mb-10">
-                <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
-                  <h3 style={{ fontSize: "20px", fontWeight: 800 }}>{round.title}</h3>
-                  {round.subtitle && <span style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)" }}>{round.subtitle}</span>}
+                <div className="mb-4 flex items-center gap-3">
+                  <h3 className="text-xl font-black">{round.title}</h3>
+                  {round.subtitle && <span className="text-sm text-white/40">{round.subtitle}</span>}
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {round.photos.map((photo) => (
-                    <div key={photo.id} style={{ overflow: "hidden", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.07)" }}>
-                      <img src={photo.image_url} alt={round.title} style={{ width: "100%", height: "220px", objectFit: "cover" }}
-
+                    <div key={photo.id} className="overflow-hidden rounded-2xl border border-white/7">
+                      <img src={photo.image_url} alt={round.title} className="h-56 w-full object-cover" />
                     </div>
                   ))}
                 </div>
@@ -291,21 +290,19 @@ export default async function Home() {
 
         {/* INSCRIÇÃO */}
         <section id="inscricao" className="mb-20">
-          <div style={{ background: "linear-gradient(135deg, rgba(249,115,22,0.08), rgba(30,64,175,0.08))", border: "1px solid rgba(249,115,22,0.2)", borderRadius: "28px", padding: "48px" }}>
+          <div className="rounded-3xl border border-orange-500/20 bg-gradient-to-br from-orange-500/[0.07] to-blue-900/[0.07] p-8 lg:p-12">
             <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
               <div>
-                <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.3em", color: "rgba(249,115,22,0.7)", textTransform: "uppercase", marginBottom: "12px" }}>Inscrição individual</div>
-                <h2 style={{ fontSize: "32px", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: "16px" }}>Inscreva-se para jogar a Copa Nipa</h2>
-                <p style={{ fontSize: "15px", lineHeight: 1.8, color: "rgba(255,255,255,0.6)", marginBottom: "24px" }}>
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-orange-500/70">Inscrição individual</p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight">Inscreva-se para jogar a Copa Nipa</h2>
+                <p className="mt-4 text-base leading-relaxed text-white/60">
                   As inscrições são individuais, no valor de R$ 120, com direito a uniforme completo: camisa e calção.
                   O atleta informa sua posição preferida para ajudar na montagem equilibrada das equipes.
                 </p>
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(34,197,94,0.1)", border: "1px solid rgba(34,197,94,0.25)", borderRadius: "14px", padding: "12px 20px", fontSize: "14px", color: "#86efac", fontWeight: 600 }}>
+                <div className="mt-6 inline-flex rounded-2xl border border-green-500/25 bg-green-500/10 px-5 py-3 text-sm font-semibold text-green-400">
                   💰 R$ 120 — inclui camisa + calção
                 </div>
-                <div style={{ marginTop: "16px", fontSize: "13px", color: "rgba(255,255,255,0.4)" }}>
-                  Posições: ataque • meio • defesa • lateral • goleiro
-                </div>
+                <p className="mt-4 text-sm text-white/40">Posições: ataque • meio • defesa • lateral • goleiro</p>
               </div>
               <RegistrationForm />
             </div>
@@ -315,38 +312,37 @@ export default async function Home() {
         {/* PATROCINADORES */}
         <section id="patrocinadores">
           <div className="mb-8">
-            <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.3em", color: "rgba(249,115,22,0.7)", textTransform: "uppercase", marginBottom: "8px" }}>Patrocinadores</div>
-            <h2 style={{ fontSize: "32px", fontWeight: 800, letterSpacing: "-0.02em" }}>Cotas e oportunidades de marca</h2>
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-orange-500/70">Patrocinadores</p>
+            <h2 className="mt-2 text-3xl font-black tracking-tight">Cotas e oportunidades de marca</h2>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-3 mb-12">
-            {[["100+","atletas envolvidos","#f97316"],["500+","pessoas impactadas","#3b82f6"],["3 meses","de exposição da marca","#22c55e"]].map(([v,l,c]) => (
-              <div key={l} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "20px", padding: "28px", borderLeft: `4px solid ${c}` }}>
-                <div style={{ fontSize: "36px", fontWeight: 900, color: c }}>{v}</div>
-                <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.5)", marginTop: "6px" }}>{l}</div>
+          <div className="mb-12 grid gap-4 sm:grid-cols-3">
+            {[["100+","atletas envolvidos","border-l-orange-500"],["500+","pessoas impactadas","border-l-blue-500"],["3 meses","de exposição da marca","border-l-green-500"]].map(([v,l,c]) => (
+              <div key={l} className={`rounded-2xl border border-white/7 bg-white/[0.02] p-6 border-l-4 ${c}`}>
+                <div className="text-4xl font-black text-white">{v}</div>
+                <div className="mt-2 text-sm text-white/50">{l}</div>
               </div>
             ))}
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] mb-12">
-            <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "24px", padding: "36px" }}>
-              <p style={{ fontSize: "16px", lineHeight: 1.9, color: "rgba(255,255,255,0.65)" }}>
+          <div className="mb-12 grid gap-6 lg:grid-cols-2">
+            <div className="rounded-3xl border border-white/7 bg-white/[0.02] p-8">
+              <p className="text-base leading-relaxed text-white/65">
                 A Copa Nipa é mais do que um torneio — é uma plataforma de relacionamento e presença de marca dentro de um dos ambientes residenciais mais relevantes da Barra da Tijuca.
               </p>
-              <p style={{ fontSize: "16px", lineHeight: 1.9, color: "rgba(255,255,255,0.65)", marginTop: "20px" }}>
+              <p className="mt-5 text-base leading-relaxed text-white/65">
                 Ao patrocinar a Copa Nipa, sua marca se conecta com um público recorrente, presente e altamente engajado.
               </p>
-              <div style={{ marginTop: "28px", background: "rgba(249,115,22,0.08)", border: "1px solid rgba(249,115,22,0.2)", borderRadius: "14px", padding: "16px 20px", fontSize: "14px", color: "#fb923c", fontWeight: 600 }}>
+              <div className="mt-8 rounded-2xl border border-orange-500/20 bg-orange-500/[0.07] px-5 py-4 text-sm font-semibold text-orange-400">
                 🏆 Seja o naming rights ou patrocine um dos 6 times da Copa Nipa.
               </div>
             </div>
-            <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "24px", padding: "36px" }}>
-              <h3 style={{ fontSize: "18px", fontWeight: 800, marginBottom: "20px" }}>Entregas e benefícios</h3>
-              <div style={{ display: "grid", gap: "10px" }}>
+            <div className="rounded-3xl border border-white/7 bg-white/[0.02] p-8">
+              <h3 className="mb-6 text-xl font-black">Entregas e benefícios</h3>
+              <div className="grid gap-3">
                 {brandBenefits.map((b, i) => (
-                  <div key={b} style={{ display: "flex", alignItems: "flex-start", gap: "10px", fontSize: "14px", color: "rgba(255,255,255,0.65)" }}>
-                    <span style={{ color: "#f97316", fontWeight: 700, flexShrink: 0 }}>0{i+1}.</span>
-                    {b}
+                  <div key={b} className="flex gap-3 text-sm text-white/60">
+                    <span className="font-bold text-orange-500">0{i+1}.</span>{b}
                   </div>
                 ))}
               </div>
@@ -354,63 +350,61 @@ export default async function Home() {
           </div>
 
           <div className="mb-12">
-            <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.3em", color: "rgba(249,115,22,0.7)", textTransform: "uppercase", marginBottom: "8px" }}>Parceiros confirmados</div>
-            <h3 style={{ fontSize: "24px", fontWeight: 800, marginBottom: "20px" }}>Marcas que já estão com a Copa Nipa</h3>
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.3em] text-orange-500/70">Parceiros confirmados</p>
+            <h3 className="mb-6 text-2xl font-black">Marcas que já estão com a Copa Nipa</h3>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {confirmedPartners.map((p) => (
-                <div key={p} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "16px", padding: "24px", textAlign: "center", fontWeight: 700, fontSize: "16px" }}>
-                  {p}
-                </div>
+                <div key={p} className="rounded-2xl border border-white/7 bg-white/[0.02] p-6 text-center font-bold">{p}</div>
               ))}
             </div>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 mb-12">
+          <div className="mb-12 grid gap-6 md:grid-cols-2">
             {sponsorPlans.map((plan) => (
-              <div key={plan.name} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(249,115,22,0.2)", borderRadius: "24px", padding: "32px", position: "relative", overflow: "hidden" }}>
-                <div style={{ position: "absolute", top: 0, right: 0, width: "200px", height: "200px", background: "radial-gradient(circle, rgba(249,115,22,0.06), transparent 70%)", pointerEvents: "none" }} />
-                <div style={{ fontSize: "24px", marginBottom: "12px" }}>{plan.icon}</div>
-                <div style={{ display: "inline-flex", background: "rgba(249,115,22,0.1)", border: "1px solid rgba(249,115,22,0.2)", borderRadius: "999px", padding: "4px 12px", fontSize: "12px", color: "#fb923c", fontWeight: 600, marginBottom: "12px" }}>{plan.highlight}</div>
-                <div style={{ fontSize: "22px", fontWeight: 800, marginBottom: "4px" }}>{plan.name}</div>
-                <div style={{ fontSize: "28px", fontWeight: 900, color: "#f97316", marginBottom: "4px" }}>{plan.price}</div>
-                <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)", marginBottom: "24px" }}>{plan.subtitle}</div>
-                <ul style={{ display: "grid", gap: "10px", marginBottom: "28px" }}>
+              <div key={plan.name} className="rounded-3xl border border-orange-500/20 bg-white/[0.02] p-8">
+                <div className="mb-3 text-3xl">{plan.icon}</div>
+                <div className="mb-3 inline-flex rounded-full border border-orange-500/20 bg-orange-500/10 px-3 py-1 text-xs font-semibold text-orange-400">{plan.highlight}</div>
+                <div className="text-2xl font-black">{plan.name}</div>
+                <div className="mt-1 text-3xl font-black text-orange-500">{plan.price}</div>
+                <div className="mt-1 mb-6 text-sm text-white/40">{plan.subtitle}</div>
+                <ul className="mb-8 grid gap-3">
                   {plan.features.map((f) => (
-                    <li key={f} style={{ display: "flex", gap: "8px", fontSize: "14px", color: "rgba(255,255,255,0.65)" }}>
-                      <span style={{ color: "#f97316" }}>✓</span> {f}
+                    <li key={f} className="flex gap-2 text-sm text-white/60">
+                      <span className="text-orange-500">✓</span>{f}
                     </li>
                   ))}
                 </ul>
-                <a href={whatsappLink} target="_blank" rel="noreferrer" style={{ display: "block", background: "linear-gradient(135deg, #f97316, #ea580c)", borderRadius: "14px", padding: "14px", textAlign: "center", fontSize: "14px", fontWeight: 700, color: "#fff", textDecoration: "none", boxShadow: "0 8px 24px rgba(249,115,22,0.3)" }}>
+                <a href={whatsappLink} target="_blank" rel="noreferrer"
+                  className="block rounded-2xl bg-orange-500 py-4 text-center text-sm font-bold text-white shadow-[0_8px_24px_rgba(249,115,22,0.3)] transition hover:bg-orange-600">
                   Solicitar proposta
                 </a>
               </div>
             ))}
           </div>
 
-          <div style={{ background: "linear-gradient(135deg, rgba(249,115,22,0.1), rgba(30,64,175,0.1))", border: "1px solid rgba(249,115,22,0.2)", borderRadius: "28px", padding: "56px", textAlign: "center" }}>
-            <h3 style={{ fontSize: "32px", fontWeight: 900, letterSpacing: "-0.02em", marginBottom: "16px" }}>
-              Dê nome ao torneio ou<br />patrocine um dos times
-            </h3>
-            <p style={{ maxWidth: "520px", margin: "0 auto 32px", fontSize: "16px", lineHeight: 1.7, color: "rgba(255,255,255,0.6)" }}>
-              Naming rights por R$ 10.000 ou patrocínio de equipe por R$ 4.000. Uma oportunidade real de posicionar sua marca na Barra da Tijuca.
+          <div className="rounded-3xl border border-orange-500/20 bg-gradient-to-br from-orange-500/[0.07] to-blue-900/[0.07] p-14 text-center">
+            <h3 className="text-4xl font-black leading-tight">Dê nome ao torneio ou<br />patrocine um dos times</h3>
+            <p className="mx-auto mt-5 max-w-lg text-base text-white/60">
+              Naming rights por R$ 10.000 ou patrocínio de equipe por R$ 4.000.
+              Uma oportunidade real de posicionar sua marca na Barra da Tijuca.
             </p>
-            <a href={whatsappLink} target="_blank" rel="noreferrer" style={{ display: "inline-block", background: "linear-gradient(135deg, #f97316, #ea580c)", borderRadius: "16px", padding: "16px 40px", fontSize: "15px", fontWeight: 700, color: "#fff", textDecoration: "none", boxShadow: "0 12px 40px rgba(249,115,22,0.4)" }}>
+            <a href={whatsappLink} target="_blank" rel="noreferrer"
+              className="mt-8 inline-block rounded-2xl bg-orange-500 px-10 py-4 text-base font-bold text-white shadow-[0_12px_40px_rgba(249,115,22,0.4)] transition hover:bg-orange-600">
               Falar sobre patrocínio
             </a>
           </div>
         </section>
 
         {/* RODAPÉ */}
-        <footer style={{ marginTop: "80px", paddingTop: "40px", borderTop: "1px solid rgba(255,255,255,0.06)", display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: "16px" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <img src="/logo-nipa.png" alt="Nova Ipanema" style={{ height: "40px", width: "40px", borderRadius: "10px", objectFit: "contain" }} />
+        <footer className="mt-20 flex flex-wrap items-center justify-between gap-4 border-t border-white/[0.06] pt-10">
+          <div className="flex items-center gap-3">
+            <img src="/logo-nipa.png" alt="Nova Ipanema" className="h-10 w-10 rounded-xl object-contain" />
             <div>
-              <div style={{ fontWeight: 800, fontSize: "15px" }}>Copa Nipa 2026</div>
-              <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)" }}>Nova Ipanema — Barra da Tijuca</div>
+              <div className="font-black">Copa Nipa 2026</div>
+              <div className="text-xs text-white/40">Nova Ipanema — Barra da Tijuca</div>
             </div>
           </div>
-          <a href={whatsappLink} target="_blank" rel="noreferrer" style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)", textDecoration: "none" }}>
+          <a href={whatsappLink} target="_blank" rel="noreferrer" className="text-sm text-white/40">
             💬 (21) 99340-5995
           </a>
         </footer>
