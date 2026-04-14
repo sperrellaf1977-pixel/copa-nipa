@@ -35,24 +35,41 @@ function calcStandings(matches) {
 }
 
 const teamStyles = {
-  Brasil:    { chip: "text-[#9be37a]",  bg: "from-[#0b2d16] via-[#12351d] to-[#4f5b11]",  border: "border-[#2f8f4e]/30" },
-  Portugal:  { chip: "text-[#ffb36b]",  bg: "from-[#0d3a22] via-[#11472a] to-[#6d1b1b]",  border: "border-[#2d8a57]/30" },
-  Alemanha:  { chip: "text-[#ffd36e]",  bg: "from-[#1b1b1b] via-[#3a1010] to-[#6b5413]",  border: "border-[#7a5b1f]/30" },
-  Espanha:   { chip: "text-[#ffd36e]",  bg: "from-[#5b1111] via-[#7b1a1a] to-[#6b5413]",  border: "border-[#a13d2d]/30" },
-  "Itália":  { chip: "text-[#cfeec7]",  bg: "from-[#113822] via-[#f2f2f2]/10 to-[#6d1b1b]", border: "border-[#2f8f4e]/25" },
-  Argentina: { chip: "text-[#b8e2ff]",  bg: "from-[#0c2b3d] via-[#184d73] to-[#5b6a16]",  border: "border-[#3a8ed0]/30" },
+  Brasil:    { chip: "text-[#86efac]",  bg: "from-[#052e16] to-[#14532d]",  border: "border-[#166534]/50", flag: "🇧🇷" },
+  Portugal:  { chip: "text-[#fca5a5]",  bg: "from-[#450a0a] to-[#7f1d1d]",  border: "border-[#991b1b]/50", flag: "🇵🇹" },
+  Alemanha:  { chip: "text-[#fde68a]",  bg: "from-[#1c1917] to-[#292524]",  border: "border-[#78716c]/50", flag: "🇩🇪" },
+  Espanha:   { chip: "text-[#fca5a5]",  bg: "from-[#450a0a] to-[#92400e]",  border: "border-[#b91c1c]/50", flag: "🇪🇸" },
+  "Itália":  { chip: "text-[#bfdbfe]",  bg: "from-[#0c1445] to-[#1e3a8a]",  border: "border-[#1d4ed8]/50", flag: "🇮🇹" },
+  Argentina: { chip: "text-[#bae6fd]",  bg: "from-[#082f49] to-[#0c4a6e]",  border: "border-[#0284c7]/50", flag: "🇦🇷" },
 };
-const getTeamStyle = (team) => teamStyles[team] || { chip: "text-[#b8e2ff]", bg: "from-[#0b1a2a] via-[#0e2234] to-[#05070b]", border: "border-white/10" };
+const getTeamStyle = (team) => teamStyles[team] || { chip: "text-white/70", bg: "from-[#0f172a] to-[#1e293b]", border: "border-white/10", flag: "⚽" };
 
-const awards = ["Craque de cada jogo", "Craque da rodada", "Artilheiro", "Melhor goleiro", "Craque do torneio"];
-const sponsorPlans = [
-  { name: "Naming Rights", price: "R$ 10.000", subtitle: "1 cota disponível", highlight: "Cota principal do torneio", features: ["A marca dá nome oficial ao torneio","Exemplo: Copa Nipa + nome da marca","Maior exposição em toda a comunicação","Presença no site oficial e nas mídias do torneio","Associação direta à identidade do evento","Possibilidade de ativações especiais durante o campeonato"] },
-  { name: "Patrocínio de Time", price: "R$ 4.000", subtitle: "6 cotas disponíveis", highlight: "Uma marca por equipe", features: ["Patrocínio exclusivo de uma das 6 equipes","Marca na parte frontal do uniforme do time","Associação direta à equipe durante todo o torneio","Presença da marca nas mídias oficiais relacionadas à equipe","Exposição recorrente ao longo das rodadas","Excelente oportunidade de proximidade com o público"] },
+const awards = [
+  { title: "Craque de cada jogo", icon: "⭐" },
+  { title: "Craque da rodada", icon: "🏅" },
+  { title: "Artilheiro", icon: "⚽" },
+  { title: "Melhor goleiro", icon: "🧤" },
+  { title: "Craque do torneio", icon: "🏆" },
 ];
-const confirmedPartners = ["Coco Bambu", "Marcio Bittencourt Sports", "JOMA", "Mitre"];
-const brandBenefits = ["Presença da marca no site oficial do torneio","Presença da marca em todas as mídias oficiais da Copa Nipa","Marca na parte frontal do uniforme de uma das equipes","Publicidade da marca no entorno do campo por até 3 meses","Possibilidade de ativação com a base de dados do condomínio","Associação a um dos torneios mais tradicionais de futebol society da Barra da Tijuca"];
 
-export const revalidate = 60;
+const sponsorPlans = [
+  { name: "Naming Rights", price: "R$ 10.000", subtitle: "1 cota disponível", highlight: "Cota principal", icon: "👑",
+    features: ["A marca dá nome oficial ao torneio", "Exemplo: Copa Nipa + nome da marca", "Maior exposição em toda a comunicação", "Presença no site oficial e nas mídias", "Associação direta à identidade do evento", "Possibilidade de ativações especiais"] },
+  { name: "Patrocínio de Time", price: "R$ 4.000", subtitle: "6 cotas disponíveis", highlight: "Uma marca por equipe", icon: "🎽",
+    features: ["Patrocínio exclusivo de uma das 6 equipes", "Marca na parte frontal do uniforme", "Associação direta à equipe no torneio", "Presença nas mídias oficiais da equipe", "Exposição recorrente ao longo das rodadas", "Proximidade com o público do condomínio"] },
+];
+
+const confirmedPartners = ["Coco Bambu", "Marcio Bittencourt Sports", "JOMA", "Mitre"];
+const brandBenefits = [
+  "Presença da marca no site oficial do torneio",
+  "Presença em todas as mídias oficiais da Copa Nipa",
+  "Marca na parte frontal do uniforme de uma das equipes",
+  "Publicidade no entorno do campo por até 3 meses",
+  "Possibilidade de ativação com a base do condomínio",
+  "Associação ao torneio mais tradicional de society da Barra",
+];
+
+export const revalidate = 0;
 
 export default async function Home() {
   const { matches, gallery } = await getData();
@@ -67,76 +84,113 @@ export default async function Home() {
   const galleryRounds = Object.values(galleryByRound);
 
   return (
-    <div className="min-h-screen bg-[#05070b] text-white">
-      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(15,110,180,0.18),transparent_22%),radial-gradient(circle_at_85%_20%,rgba(25,160,90,0.10),transparent_20%),linear-gradient(180deg,#071018_0%,#05070b_55%,#04060a_100%)]" />
-      <div className="fixed inset-0 -z-10 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:56px_56px] opacity-[0.08]" />
-      <main className="mx-auto max-w-7xl px-6 py-8 lg:px-10 lg:py-12">
+    <div className="min-h-screen text-white" style={{ background: "linear-gradient(160deg, #0a0f1e 0%, #0d1428 40%, #0a0e1a 100%)" }}>
 
-        {/* NAVBAR */}
-        <section className="mb-16">
-          <div className="mb-8 rounded-full border border-white/10 bg-white/[0.03] px-4 py-3 backdrop-blur-xl">
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-              <div className="flex items-center gap-4">
-                <img src="/logo-nipa.png" alt="Logo Nova Ipanema" className="h-14 w-14 rounded-xl object-contain bg-white/5 p-1" />
-                <div>
-                  <div className="text-[11px] font-semibold uppercase tracking-[0.35em] text-white/45">Copa Nipa</div>
-                  <div className="mt-1 text-xl font-black tracking-tight">Nova Ipanema</div>
+      {/* Fundo decorativo */}
+      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div style={{ position: "absolute", top: "-20%", right: "-10%", width: "600px", height: "600px", background: "radial-gradient(circle, rgba(249,115,22,0.08) 0%, transparent 70%)" }} />
+        <div style={{ position: "absolute", bottom: "10%", left: "-10%", width: "500px", height: "500px", background: "radial-gradient(circle, rgba(30,64,175,0.12) 0%, transparent 70%)" }} />
+        <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+      </div>
+
+      {/* NAVBAR */}
+      <nav style={{ borderBottom: "1px solid rgba(249,115,22,0.15)", background: "rgba(10,14,26,0.85)", backdropFilter: "blur(20px)", position: "sticky", top: 0, zIndex: 50 }}>
+        <div className="mx-auto max-w-7xl px-6 py-4">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex items-center gap-4">
+              <div style={{ background: "linear-gradient(135deg, rgba(249,115,22,0.2), rgba(30,64,175,0.2))", border: "2px solid rgba(249,115,22,0.3)", borderRadius: "14px", padding: "4px" }}>
+                <img src="/logo-nipa.png" alt="Nova Ipanema" className="h-12 w-12 rounded-xl object-contain" />
+              </div>
+              <div>
+                <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.3em", color: "rgba(249,115,22,0.7)", textTransform: "uppercase" }}>Nova Ipanema</div>
+                <div style={{ fontSize: "20px", fontWeight: 900, letterSpacing: "-0.02em", background: "linear-gradient(90deg, #fff 60%, rgba(249,115,22,0.8))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                  Copa Nipa 2026
                 </div>
               </div>
-              <div className="flex flex-wrap gap-2 text-sm text-white/65">
-                {[["jogos","Jogos"],["classificacao","Classificação"],["premiacoes","Premiações"],["galeria","Galeria"],["inscricao","Inscrição"],["patrocinadores","Patrocinadores"]].map(([id,label]) => (
-                  <a key={id} href={`#${id}`} className="rounded-full border border-white/10 px-4 py-2 hover:bg-white/5">{label}</a>
-                ))}
-              </div>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {[["jogos","Jogos"],["classificacao","Classificação"],["premiacoes","Premiações"],["galeria","Galeria"],["inscricao","Inscrição"],["patrocinadores","Patrocinadores"]].map(([id, label]) => (
+                <a key={id} href={`#${id}`} style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: "999px", padding: "6px 16px", fontSize: "13px", color: "rgba(255,255,255,0.6)", transition: "all 0.2s" }}
+                  onMouseEnter={e => { e.target.style.borderColor = "rgba(249,115,22,0.4)"; e.target.style.color = "#fff"; }}
+                  onMouseLeave={e => { e.target.style.borderColor = "rgba(255,255,255,0.08)"; e.target.style.color = "rgba(255,255,255,0.6)"; }}>
+                  {label}
+                </a>
+              ))}
             </div>
           </div>
-          <div className="mb-5 inline-flex rounded-full border border-[#1a8ad8]/30 bg-[#1a8ad8]/10 px-4 py-2 text-sm text-[#b8e2ff]">
-            Copa Nipa 2026 • 6 seleções • 7 sábados • Barra da Tijuca
+        </div>
+      </nav>
+
+      <main className="mx-auto max-w-7xl px-6 py-12 lg:px-10">
+
+        {/* HERO */}
+        <section className="mb-20">
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(249,115,22,0.1)", border: "1px solid rgba(249,115,22,0.3)", borderRadius: "999px", padding: "6px 16px", marginBottom: "24px" }}>
+            <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#f97316", display: "inline-block", boxShadow: "0 0 8px #f97316" }} />
+            <span style={{ fontSize: "13px", color: "#fb923c", fontWeight: 600 }}>Copa Nipa 2026 • 6 seleções • 7 sábados • Barra da Tijuca</span>
           </div>
-          <h1 className="max-w-5xl text-5xl font-black uppercase leading-[0.95] tracking-[-0.05em] sm:text-6xl lg:text-7xl">
-            O melhor torneio de futebol society<span className="block text-[#1a8ad8]">da Barra da Tijuca</span>
+
+          <h1 style={{ fontSize: "clamp(42px, 7vw, 80px)", fontWeight: 900, lineHeight: 0.95, letterSpacing: "-0.04em", marginBottom: "24px" }}>
+            O melhor torneio<br />
+            <span style={{ background: "linear-gradient(90deg, #f97316, #fb923c)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>de futebol society</span><br />
+            da Barra da Tijuca
           </h1>
-          <p className="mt-6 max-w-2xl text-base leading-8 text-white/70 sm:text-lg">
-            A Copa Nipa nasce com posicionamento forte, visual moderno e espírito competitivo. Um campeonato com identidade própria, calendário definido, cobertura contínua e espaço para patrocinadores se conectarem a um público qualificado.
+
+          <p style={{ maxWidth: "580px", fontSize: "17px", lineHeight: 1.8, color: "rgba(255,255,255,0.6)", marginBottom: "36px" }}>
+            A Copa Nipa nasce com posicionamento forte, visual moderno e espírito competitivo.
+            Um campeonato com identidade própria e calendário definido.
           </p>
-          <div className="mt-8 flex flex-wrap gap-4">
-            <a href="#inscricao" className="rounded-2xl bg-[#1a8ad8] px-6 py-3 text-sm font-semibold text-white transition hover:scale-[1.02]">Fazer inscrição</a>
-            <a href="#patrocinadores" className="rounded-2xl border border-white/15 bg-white/[0.02] px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/[0.06]">Seja patrocinador</a>
-            <a href={whatsappLink} target="_blank" rel="noreferrer" className="rounded-2xl border border-[#25D366]/30 bg-[#25D366]/10 px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#25D366]/20">Falar no WhatsApp</a>
+
+          <div className="flex flex-wrap gap-3 mb-14">
+            <a href="#inscricao" style={{ background: "linear-gradient(135deg, #f97316, #ea580c)", borderRadius: "14px", padding: "13px 28px", fontSize: "14px", fontWeight: 700, color: "#fff", textDecoration: "none", boxShadow: "0 8px 32px rgba(249,115,22,0.35)" }}>
+              Fazer inscrição
+            </a>
+            <a href="#patrocinadores" style={{ border: "1px solid rgba(255,255,255,0.12)", borderRadius: "14px", padding: "13px 28px", fontSize: "14px", fontWeight: 600, color: "rgba(255,255,255,0.8)", textDecoration: "none", background: "rgba(255,255,255,0.03)" }}>
+              Seja patrocinador
+            </a>
+            <a href={whatsappLink} target="_blank" rel="noreferrer" style={{ border: "1px solid rgba(37,211,102,0.3)", borderRadius: "14px", padding: "13px 28px", fontSize: "14px", fontWeight: 600, color: "rgba(255,255,255,0.8)", textDecoration: "none", background: "rgba(37,211,102,0.08)" }}>
+              💬 WhatsApp
+            </a>
           </div>
-          <div className="mt-10 grid gap-4 sm:grid-cols-3">
-            {[["7","sábados de competição"],["R$ 120","inscrição com uniforme"],["Top 4","avançam para semifinal"]].map(([v,l]) => (
-              <div key={l} className="rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-5">
-                <div className="text-3xl font-black">{v}</div>
-                <div className="mt-2 text-sm text-white/60">{l}</div>
+
+          <div className="grid gap-4 sm:grid-cols-3">
+            {[["7", "sábados de competição", "#f97316"], ["R$ 120", "inscrição com uniforme", "#22c55e"], ["Top 4", "avançam para semifinal", "#3b82f6"]].map(([v, l, c]) => (
+              <div key={l} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "20px", padding: "24px", borderTop: `3px solid ${c}` }}>
+                <div style={{ fontSize: "32px", fontWeight: 900, color: c }}>{v}</div>
+                <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.5)", marginTop: "6px" }}>{l}</div>
               </div>
             ))}
           </div>
         </section>
 
         {/* JOGOS */}
-        <section id="jogos" className="mb-16">
-          <div className="mb-6">
-            <p className="text-sm uppercase tracking-[0.2em] text-white/42">Jogos</p>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight">Calendário oficial da Copa Nipa</h2>
+        <section id="jogos" className="mb-20">
+          <div className="mb-8">
+            <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.3em", color: "rgba(249,115,22,0.7)", textTransform: "uppercase", marginBottom: "8px" }}>Jogos</div>
+            <h2 style={{ fontSize: "32px", fontWeight: 800, letterSpacing: "-0.02em" }}>Calendário oficial</h2>
           </div>
-          <div className="grid gap-4">
+          <div className="grid gap-3">
             {matches.map((match) => {
               const hs = getTeamStyle(match.home_team);
               const as_ = getTeamStyle(match.away_team);
               const score = match.home_score !== null && match.away_score !== null ? `${match.home_score} x ${match.away_score}` : "VS";
+              const done = match.status === "Finalizado";
               return (
-                <div key={match.id} className={`rounded-xl border ${hs.border} bg-gradient-to-r ${hs.bg} p-5 shadow-[0_10px_30px_rgba(0,0,0,0.25)]`}>
-                  <div className="flex justify-between text-sm">
-                    <span className={`font-semibold ${hs.chip}`}>{match.stage}</span>
-                    <span className="text-white/50">{match.match_date}</span>
+                <div key={match.id} style={{ background: `linear-gradient(135deg, ${done ? "rgba(249,115,22,0.05)" : "rgba(255,255,255,0.02)"}, rgba(255,255,255,0.01))`, border: `1px solid ${done ? "rgba(249,115,22,0.2)" : "rgba(255,255,255,0.06)"}`, borderRadius: "16px", padding: "16px 20px" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "12px" }}>
+                    <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.15em", color: done ? "#fb923c" : "rgba(255,255,255,0.35)", textTransform: "uppercase" }}>{match.stage}</span>
+                    <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.35)" }}>{match.match_date}</span>
                   </div>
-                  <div className="mt-4 grid items-center gap-4 md:grid-cols-[1fr_auto_1fr]">
-                    <div className={`rounded-2xl border border-white/10 bg-black/20 px-4 py-4 text-lg font-bold ${hs.chip}`}>{match.home_team}</div>
-                    <div className="text-center text-xl font-black text-white">{score}</div>
-                    <div className={`rounded-2xl border border-white/10 bg-black/20 px-4 py-4 text-right text-lg font-bold ${as_.chip}`}>{match.away_team}</div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", gap: "12px" }}>
+                    <div style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "12px", padding: "12px 16px", fontSize: "16px", fontWeight: 800, color: hs.chip }}>
+                      {hs.flag} {match.home_team}
+                    </div>
+                    <div style={{ textAlign: "center", fontSize: done ? "22px" : "16px", fontWeight: 900, color: done ? "#f97316" : "rgba(255,255,255,0.3)", minWidth: "60px" }}>{score}</div>
+                    <div style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "12px", padding: "12px 16px", fontSize: "16px", fontWeight: 800, color: as_.chip, textAlign: "right" }}>
+                      {match.away_team} {as_.flag}
+                    </div>
                   </div>
-                  <div className="mt-3 text-xs text-white/50">{match.status}</div>
+                  <div style={{ marginTop: "10px", fontSize: "11px", color: done ? "rgba(249,115,22,0.6)" : "rgba(255,255,255,0.25)" }}>{match.status}</div>
                 </div>
               );
             })}
@@ -144,68 +198,75 @@ export default async function Home() {
         </section>
 
         {/* CLASSIFICAÇÃO */}
-        <section id="classificacao" className="mb-16">
-          <div className="mb-6">
-            <p className="text-sm uppercase tracking-[0.2em] text-white/42">Classificação</p>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight">Tabela geral</h2>
+        <section id="classificacao" className="mb-20">
+          <div className="mb-8">
+            <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.3em", color: "rgba(249,115,22,0.7)", textTransform: "uppercase", marginBottom: "8px" }}>Classificação</div>
+            <h2 style={{ fontSize: "32px", fontWeight: 800, letterSpacing: "-0.02em" }}>Tabela geral</h2>
           </div>
-          <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-white/5 text-white/55">
-                <tr>{["#","Time","PTS","PJ","VIT","EMP","DER","SG"].map((h) => <th key={h} className="px-4 py-4">{h}</th>)}</tr>
+          <div style={{ overflow: "hidden", borderRadius: "20px", border: "1px solid rgba(255,255,255,0.07)", background: "rgba(255,255,255,0.02)" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px" }}>
+              <thead>
+                <tr style={{ background: "rgba(249,115,22,0.08)", borderBottom: "1px solid rgba(249,115,22,0.15)" }}>
+                  {["#", "Time", "PTS", "PJ", "VIT", "EMP", "DER", "SG"].map((h) => (
+                    <th key={h} style={{ padding: "14px 16px", textAlign: "left", fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", color: "rgba(249,115,22,0.7)", textTransform: "uppercase" }}>{h}</th>
+                  ))}
+                </tr>
               </thead>
               <tbody>
                 {standings.map((row, i) => (
-                  <tr key={row.team} className={`border-t border-white/10 ${i < 4 ? "bg-[#1a8ad8]/[0.08]" : ""}`}>
-                    <td className="px-4 py-4 font-bold">{i + 1}</td>
-                    <td className="px-4 py-4 font-semibold">{row.team}</td>
-                    <td className="px-4 py-4 font-bold text-[#1a8ad8]">{row.pts}</td>
-                    <td className="px-4 py-4">{row.pj}</td>
-                    <td className="px-4 py-4">{row.vit}</td>
-                    <td className="px-4 py-4">{row.emp}</td>
-                    <td className="px-4 py-4">{row.der}</td>
-                    <td className={`px-4 py-4 ${row.sg > 0 ? "text-green-400" : row.sg < 0 ? "text-red-400" : ""}`}>{row.sg > 0 ? `+${row.sg}` : row.sg}</td>
+                  <tr key={row.team} style={{ borderTop: "1px solid rgba(255,255,255,0.04)", background: i < 4 ? "rgba(249,115,22,0.04)" : "transparent" }}>
+                    <td style={{ padding: "14px 16px", fontWeight: 700, color: i < 4 ? "#f97316" : "rgba(255,255,255,0.4)" }}>{i + 1}</td>
+                    <td style={{ padding: "14px 16px", fontWeight: 700 }}>
+                      {getTeamStyle(row.team).flag} {row.team}
+                      {i < 4 && <span style={{ marginLeft: "8px", fontSize: "10px", background: "rgba(249,115,22,0.15)", color: "#fb923c", border: "1px solid rgba(249,115,22,0.3)", borderRadius: "999px", padding: "2px 8px" }}>↑ Semi</span>}
+                    </td>
+                    <td style={{ padding: "14px 16px", fontWeight: 900, color: "#f97316", fontSize: "16px" }}>{row.pts}</td>
+                    <td style={{ padding: "14px 16px", color: "rgba(255,255,255,0.6)" }}>{row.pj}</td>
+                    <td style={{ padding: "14px 16px", color: "#86efac" }}>{row.vit}</td>
+                    <td style={{ padding: "14px 16px", color: "rgba(255,255,255,0.5)" }}>{row.emp}</td>
+                    <td style={{ padding: "14px 16px", color: "#fca5a5" }}>{row.der}</td>
+                    <td style={{ padding: "14px 16px", color: row.sg > 0 ? "#86efac" : row.sg < 0 ? "#fca5a5" : "rgba(255,255,255,0.5)", fontWeight: 700 }}>{row.sg > 0 ? `+${row.sg}` : row.sg}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="mt-4 text-sm text-white/50">Os 4 primeiros avançam para as semifinais.</p>
+          <p style={{ marginTop: "12px", fontSize: "13px", color: "rgba(255,255,255,0.35)" }}>Os 4 primeiros avançam para as semifinais.</p>
         </section>
 
         {/* PREMIAÇÕES */}
-        <section id="premiacoes" className="mb-16">
-          <div className="mb-6">
-            <p className="text-sm uppercase tracking-[0.2em] text-white/42">Premiações</p>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight">Destaques do torneio</h2>
+        <section id="premiacoes" className="mb-20">
+          <div className="mb-8">
+            <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.3em", color: "rgba(249,115,22,0.7)", textTransform: "uppercase", marginBottom: "8px" }}>Premiações</div>
+            <h2 style={{ fontSize: "32px", fontWeight: 800, letterSpacing: "-0.02em" }}>Destaques do torneio</h2>
           </div>
-          <div className="grid gap-4 md:grid-cols-5">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {awards.map((award) => (
-              <div key={award} className="rounded-[1.6rem] border border-white/10 bg-white/[0.03] p-5 transition hover:bg-white/[0.045]">
-                <div className="text-sm font-semibold text-white">{award}</div>
-                <div className="mt-2 text-sm text-white/55">Acompanhamento durante o torneio</div>
+              <div key={award.title} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "20px", padding: "24px", textAlign: "center", transition: "all 0.2s" }}>
+                <div style={{ fontSize: "32px", marginBottom: "12px" }}>{award.icon}</div>
+                <div style={{ fontSize: "14px", fontWeight: 700, color: "#fff" }}>{award.title}</div>
+                <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)", marginTop: "6px" }}>Acompanhamento durante o torneio</div>
               </div>
             ))}
           </div>
         </section>
 
         {/* GALERIA */}
-        <section id="galeria" className="mb-16">
-          <div className="mb-6">
-            <p className="text-sm uppercase tracking-[0.2em] text-white/42">Galeria</p>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight">Fotos e melhores momentos das rodadas</h2>
+        <section id="galeria" className="mb-20">
+          <div className="mb-8">
+            <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.3em", color: "rgba(249,115,22,0.7)", textTransform: "uppercase", marginBottom: "8px" }}>Galeria</div>
+            <h2 style={{ fontSize: "32px", fontWeight: 800, letterSpacing: "-0.02em" }}>Fotos e melhores momentos</h2>
           </div>
           {galleryRounds.length === 0 ? (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {["Rodada 1","Rodada 2","Rodada 3","Rodada 4","Rodada 5","Finais"].map((title, i) => (
-                <div key={title} className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]">
-                  <div className="relative flex h-56 items-end overflow-hidden bg-gradient-to-br from-white/[0.05] via-white/[0.02] to-black/20 p-5">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(26,138,216,0.22),transparent_28%)]" />
-                    <div className="relative rounded-full border border-white/10 bg-black/25 px-3 py-1 text-xs uppercase tracking-[0.2em] text-white/60">Álbum {i + 1}</div>
+                <div key={title} style={{ overflow: "hidden", borderRadius: "20px", border: "1px solid rgba(255,255,255,0.07)", background: "rgba(255,255,255,0.02)" }}>
+                  <div style={{ height: "200px", background: `linear-gradient(135deg, rgba(249,115,22,0.${i % 2 === 0 ? "08" : "05"}), rgba(30,64,175,0.1))`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <span style={{ fontSize: "48px", opacity: 0.3 }}>📸</span>
                   </div>
-                  <div className="p-5">
-                    <div className="text-base font-semibold">{title}</div>
-                    <div className="mt-2 text-sm text-white/40 italic">Fotos em breve</div>
+                  <div style={{ padding: "16px 20px" }}>
+                    <div style={{ fontWeight: 700, fontSize: "15px" }}>{title}</div>
+                    <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.35)", marginTop: "4px", fontStyle: "italic" }}>Fotos em breve</div>
                   </div>
                 </div>
               ))}
@@ -213,13 +274,16 @@ export default async function Home() {
           ) : (
             galleryRounds.map((round) => (
               <div key={round.title} className="mb-10">
-                <h3 className="mb-4 text-xl font-bold">{round.title}
-                  {round.subtitle && <span className="ml-3 text-sm font-normal text-white/50">{round.subtitle}</span>}
-                </h3>
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
+                  <h3 style={{ fontSize: "20px", fontWeight: 800 }}>{round.title}</h3>
+                  {round.subtitle && <span style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)" }}>{round.subtitle}</span>}
+                </div>
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {round.photos.map((photo) => (
-                    <div key={photo.id} className="overflow-hidden rounded-[1.5rem] border border-white/10">
-                      <img src={photo.image_url} alt={round.title} className="h-56 w-full object-cover transition hover:scale-105" />
+                    <div key={photo.id} style={{ overflow: "hidden", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.07)" }}>
+                      <img src={photo.image_url} alt={round.title} style={{ width: "100%", height: "220px", objectFit: "cover", transition: "transform 0.3s" }}
+                        onMouseEnter={e => e.target.style.transform = "scale(1.05)"}
+                        onMouseLeave={e => e.target.style.transform = "scale(1)"} />
                     </div>
                   ))}
                 </div>
@@ -229,19 +293,22 @@ export default async function Home() {
         </section>
 
         {/* INSCRIÇÃO */}
-        <section id="inscricao" className="mb-16">
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-8 shadow-[0_20px_80px_rgba(0,0,0,0.3)] backdrop-blur-xl lg:p-10">
-            <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
+        <section id="inscricao" className="mb-20">
+          <div style={{ background: "linear-gradient(135deg, rgba(249,115,22,0.08), rgba(30,64,175,0.08))", border: "1px solid rgba(249,115,22,0.2)", borderRadius: "28px", padding: "48px" }}>
+            <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
               <div>
-                <p className="text-sm uppercase tracking-[0.2em] text-white/42">Inscrição individual</p>
-                <h2 className="mt-2 text-3xl font-bold tracking-tight">Inscreva-se para jogar a Copa Nipa</h2>
-                <p className="mt-4 max-w-xl text-sm leading-7 text-white/68">
-                  As inscrições são individuais, no valor de R$ 120, com direito a uniforme completo: camisa e calção. O atleta informa sua posição preferida para ajudar na montagem equilibrada das equipes.
+                <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.3em", color: "rgba(249,115,22,0.7)", textTransform: "uppercase", marginBottom: "12px" }}>Inscrição individual</div>
+                <h2 style={{ fontSize: "32px", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: "16px" }}>Inscreva-se para jogar a Copa Nipa</h2>
+                <p style={{ fontSize: "15px", lineHeight: 1.8, color: "rgba(255,255,255,0.6)", marginBottom: "24px" }}>
+                  As inscrições são individuais, no valor de R$ 120, com direito a uniforme completo: camisa e calção.
+                  O atleta informa sua posição preferida para ajudar na montagem equilibrada das equipes.
                 </p>
-                <div className="mt-6 inline-flex rounded-2xl border border-[#18a55a]/25 bg-[#18a55a]/10 px-4 py-3 text-sm text-[#baf2d2]">
-                  Valor da inscrição: R$ 120 • inclui camisa + calção
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(34,197,94,0.1)", border: "1px solid rgba(34,197,94,0.25)", borderRadius: "14px", padding: "12px 20px", fontSize: "14px", color: "#86efac", fontWeight: 600 }}>
+                  💰 R$ 120 — inclui camisa + calção
                 </div>
-                <div className="mt-6 text-sm text-white/55">Posições: ataque • meio • defesa • lateral • goleiro</div>
+                <div style={{ marginTop: "16px", fontSize: "13px", color: "rgba(255,255,255,0.4)" }}>
+                  Posições: ataque • meio • defesa • lateral • goleiro
+                </div>
               </div>
               <RegistrationForm />
             </div>
@@ -250,63 +317,106 @@ export default async function Home() {
 
         {/* PATROCINADORES */}
         <section id="patrocinadores">
-          <div className="mb-6">
-            <p className="text-sm uppercase tracking-[0.2em] text-white/42">Patrocinadores</p>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight">Cotas e oportunidades de marca</h2>
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-white/65">A Copa Nipa pode ser apresentada como uma propriedade premium do condomínio, com recorrência de público, conteúdo contínuo e exposição qualificada ao longo de sete semanas.</p>
+          <div className="mb-8">
+            <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.3em", color: "rgba(249,115,22,0.7)", textTransform: "uppercase", marginBottom: "8px" }}>Patrocinadores</div>
+            <h2 style={{ fontSize: "32px", fontWeight: 800, letterSpacing: "-0.02em" }}>Cotas e oportunidades de marca</h2>
           </div>
-          <div className="mb-12 grid gap-6 md:grid-cols-3">
-            {[["100+","atletas envolvidos no torneio"],["500+","pessoas impactadas dentro do condomínio"],["3 meses","de exposição da marca no entorno do campo"]].map(([v,l]) => (
-              <div key={l} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-                <div className="text-3xl font-black">{v}</div>
-                <div className="mt-2 text-white/60">{l}</div>
+
+          <div className="grid gap-4 sm:grid-cols-3 mb-12">
+            {[["100+","atletas envolvidos","#f97316"],["500+","pessoas impactadas","#3b82f6"],["3 meses","de exposição da marca","#22c55e"]].map(([v,l,c]) => (
+              <div key={l} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "20px", padding: "28px", borderLeft: `4px solid ${c}` }}>
+                <div style={{ fontSize: "36px", fontWeight: 900, color: c }}>{v}</div>
+                <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.5)", marginTop: "6px" }}>{l}</div>
               </div>
             ))}
           </div>
-          <div className="mb-12 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-8">
-              <p className="text-base leading-8 text-white/70">A Copa Nipa é mais do que um torneio — é uma plataforma de relacionamento e presença de marca dentro de um dos ambientes residenciais mais relevantes da Barra da Tijuca. Ao patrocinar a Copa Nipa, sua marca se conecta com um público recorrente, presente e altamente engajado.</p>
-              <p className="mt-6 text-base leading-8 text-white/70">Mais do que exposição, é uma oportunidade de associação a esporte, comunidade, experiência e pertencimento. Um patrocínio que gera lembrança, presença e conexão.</p>
-              <div className="mt-8 rounded-2xl border border-[#1a8ad8]/20 bg-[#1a8ad8]/10 px-5 py-4 text-sm text-[#b8e2ff]">Seja o naming rights do torneio ou patrocine um dos 6 times da Copa Nipa.</div>
+
+          <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] mb-12">
+            <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "24px", padding: "36px" }}>
+              <p style={{ fontSize: "16px", lineHeight: 1.9, color: "rgba(255,255,255,0.65)" }}>
+                A Copa Nipa é mais do que um torneio — é uma plataforma de relacionamento e presença de marca dentro de um dos ambientes residenciais mais relevantes da Barra da Tijuca.
+              </p>
+              <p style={{ fontSize: "16px", lineHeight: 1.9, color: "rgba(255,255,255,0.65)", marginTop: "20px" }}>
+                Ao patrocinar a Copa Nipa, sua marca se conecta com um público recorrente, presente e altamente engajado.
+              </p>
+              <div style={{ marginTop: "28px", background: "rgba(249,115,22,0.08)", border: "1px solid rgba(249,115,22,0.2)", borderRadius: "14px", padding: "16px 20px", fontSize: "14px", color: "#fb923c", fontWeight: 600 }}>
+                🏆 Seja o naming rights ou patrocine um dos 6 times da Copa Nipa.
+              </div>
             </div>
-            <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-8">
-              <h3 className="text-xl font-bold">Entregas e benefícios</h3>
-              <div className="mt-6 grid gap-3">
-                {brandBenefits.map((b) => <div key={b} className="rounded-xl border border-white/10 bg-black/20 p-4 text-sm text-white/75">{b}</div>)}
+            <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "24px", padding: "36px" }}>
+              <h3 style={{ fontSize: "18px", fontWeight: 800, marginBottom: "20px" }}>Entregas e benefícios</h3>
+              <div style={{ display: "grid", gap: "10px" }}>
+                {brandBenefits.map((b, i) => (
+                  <div key={b} style={{ display: "flex", alignItems: "flex-start", gap: "10px", fontSize: "14px", color: "rgba(255,255,255,0.65)" }}>
+                    <span style={{ color: "#f97316", fontWeight: 700, flexShrink: 0 }}>0{i+1}.</span>
+                    {b}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
+
           <div className="mb-12">
-            <div className="mb-6">
-              <p className="text-sm uppercase tracking-[0.2em] text-white/42">Parceiros já confirmados</p>
-              <h3 className="mt-2 text-2xl font-bold tracking-tight">Marcas que já estão com a Copa Nipa</h3>
-            </div>
+            <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.3em", color: "rgba(249,115,22,0.7)", textTransform: "uppercase", marginBottom: "8px" }}>Parceiros confirmados</div>
+            <h3 style={{ fontSize: "24px", fontWeight: 800, marginBottom: "20px" }}>Marcas que já estão com a Copa Nipa</h3>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {confirmedPartners.map((p) => (
-                <div key={p} className="rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-6 text-center transition hover:bg-white/[0.045]">
-                  <div className="text-lg font-bold">{p}</div>
+                <div key={p} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "16px", padding: "24px", textAlign: "center", fontWeight: 700, fontSize: "16px" }}>
+                  {p}
                 </div>
               ))}
             </div>
           </div>
-          <div className="mb-12 grid gap-6 md:grid-cols-2">
+
+          <div className="grid gap-6 md:grid-cols-2 mb-12">
             {sponsorPlans.map((plan) => (
-              <div key={plan.name} className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 shadow-xl transition hover:-translate-y-0.5 hover:border-white/15">
-                <div className="inline-flex rounded-full border border-[#1a8ad8]/20 bg-[#1a8ad8]/10 px-3 py-1 text-xs font-semibold text-[#b8e2ff]">{plan.highlight}</div>
-                <div className="mt-4 text-2xl font-bold">{plan.name}</div>
-                <div className="mt-2 text-xl font-semibold text-[#1a8ad8]">{plan.price}</div>
-                <div className="mt-1 text-sm text-white/50">{plan.subtitle}</div>
-                <ul className="mt-6 space-y-3 text-sm text-white/72">{plan.features.map((f) => <li key={f}>• {f}</li>)}</ul>
-                <a href={whatsappLink} target="_blank" rel="noreferrer" className="mt-8 block w-full rounded-2xl bg-[#1a8ad8] py-3 text-center text-sm font-semibold text-white transition hover:scale-[1.01]">Solicitar proposta</a>
+              <div key={plan.name} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(249,115,22,0.2)", borderRadius: "24px", padding: "32px", position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", top: 0, right: 0, width: "200px", height: "200px", background: "radial-gradient(circle, rgba(249,115,22,0.06), transparent 70%)", pointerEvents: "none" }} />
+                <div style={{ fontSize: "24px", marginBottom: "12px" }}>{plan.icon}</div>
+                <div style={{ display: "inline-flex", background: "rgba(249,115,22,0.1)", border: "1px solid rgba(249,115,22,0.2)", borderRadius: "999px", padding: "4px 12px", fontSize: "12px", color: "#fb923c", fontWeight: 600, marginBottom: "12px" }}>{plan.highlight}</div>
+                <div style={{ fontSize: "22px", fontWeight: 800, marginBottom: "4px" }}>{plan.name}</div>
+                <div style={{ fontSize: "28px", fontWeight: 900, color: "#f97316", marginBottom: "4px" }}>{plan.price}</div>
+                <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)", marginBottom: "24px" }}>{plan.subtitle}</div>
+                <ul style={{ display: "grid", gap: "10px", marginBottom: "28px" }}>
+                  {plan.features.map((f) => (
+                    <li key={f} style={{ display: "flex", gap: "8px", fontSize: "14px", color: "rgba(255,255,255,0.65)" }}>
+                      <span style={{ color: "#f97316" }}>✓</span> {f}
+                    </li>
+                  ))}
+                </ul>
+                <a href={whatsappLink} target="_blank" rel="noreferrer" style={{ display: "block", background: "linear-gradient(135deg, #f97316, #ea580c)", borderRadius: "14px", padding: "14px", textAlign: "center", fontSize: "14px", fontWeight: 700, color: "#fff", textDecoration: "none", boxShadow: "0 8px 24px rgba(249,115,22,0.3)" }}>
+                  Solicitar proposta
+                </a>
               </div>
             ))}
           </div>
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-10 text-center">
-            <h3 className="text-3xl font-bold">Dê nome ao torneio ou patrocine um dos times</h3>
-            <p className="mx-auto mt-4 max-w-2xl text-white/70">Naming rights da Copa Nipa por R$ 10.000 ou patrocínio de uma das 6 equipes por R$ 4.000. Uma oportunidade real para posicionar sua marca dentro de um dos torneios mais tradicionais de futebol society da Barra da Tijuca.</p>
-            <a href={whatsappLink} target="_blank" rel="noreferrer" className="mt-8 inline-block rounded-2xl bg-[#1a8ad8] px-8 py-4 text-sm font-bold text-white transition hover:scale-[1.02]">Falar sobre patrocínio</a>
+
+          <div style={{ background: "linear-gradient(135deg, rgba(249,115,22,0.1), rgba(30,64,175,0.1))", border: "1px solid rgba(249,115,22,0.2)", borderRadius: "28px", padding: "56px", textAlign: "center" }}>
+            <h3 style={{ fontSize: "32px", fontWeight: 900, letterSpacing: "-0.02em", marginBottom: "16px" }}>
+              Dê nome ao torneio ou<br />patrocine um dos times
+            </h3>
+            <p style={{ maxWidth: "520px", margin: "0 auto 32px", fontSize: "16px", lineHeight: 1.7, color: "rgba(255,255,255,0.6)" }}>
+              Naming rights por R$ 10.000 ou patrocínio de equipe por R$ 4.000. Uma oportunidade real de posicionar sua marca na Barra da Tijuca.
+            </p>
+            <a href={whatsappLink} target="_blank" rel="noreferrer" style={{ display: "inline-block", background: "linear-gradient(135deg, #f97316, #ea580c)", borderRadius: "16px", padding: "16px 40px", fontSize: "15px", fontWeight: 700, color: "#fff", textDecoration: "none", boxShadow: "0 12px 40px rgba(249,115,22,0.4)" }}>
+              Falar sobre patrocínio
+            </a>
           </div>
         </section>
+
+        {/* RODAPÉ */}
+        <footer style={{ marginTop: "80px", paddingTop: "40px", borderTop: "1px solid rgba(255,255,255,0.06)", display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: "16px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <img src="/logo-nipa.png" alt="Nova Ipanema" style={{ height: "40px", width: "40px", borderRadius: "10px", objectFit: "contain" }} />
+            <div>
+              <div style={{ fontWeight: 800, fontSize: "15px" }}>Copa Nipa 2026</div>
+              <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)" }}>Nova Ipanema — Barra da Tijuca</div>
+            </div>
+          </div>
+          <a href={whatsappLink} target="_blank" rel="noreferrer" style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)", textDecoration: "none" }}>
+            💬 (21) 99340-5995
+          </a>
+        </footer>
       </main>
     </div>
   );
