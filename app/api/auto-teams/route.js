@@ -30,7 +30,7 @@ export async function POST(req) {
     const { data, error } = await supabase
       .from("registrations")
       .select("*")
-      .eq("payment_status", "pago");
+      .order("id", { ascending: true });
 
     if (error) return Response.json({ error: error.message }, { status: 500 });
     if (!data || data.length === 0) {
