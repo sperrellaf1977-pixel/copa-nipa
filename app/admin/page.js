@@ -102,10 +102,23 @@ function TabInscricoes() {
 
   async function updateRating(item, rating) {
     const newRating = item.rating === rating ? null : rating;
-    await fetch("/api/update-rating", {
+    const res = await fetch("/api/update-rating", {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: item.id, rating: newRating }),
     });
+    const json = await res.json();
+    if (json.error) alert("Erro ao salvar nota: " + json.error);
+    load();
+  }
+
+  async function deleteRegistration(item) {
+    if (!confirm(`Excluir inscrição de ${item.full_name}? Esta ação não pode ser desfeita.`)) return;
+    const res = await fetch("/api/delete-registration", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: item.id }),
+    });
+    const json = await res.json();
+    if (json.error) alert("Erro ao excluir: " + json.error);
     load();
   }
 
@@ -158,9 +171,14 @@ function TabInscricoes() {
                   </div>
                   {r.notes && <div className="mt-1 text-xs text-white/40 italic">{r.notes}</div>}
                 </div>
-                <button onClick={() => togglePayment(r)} className={`rounded-xl px-3 py-1.5 text-xs font-semibold ${statusColor(r.payment_status || "pendente")}`}>
-                  {r.payment_status || "pendente"}
-                </button>
+                <div className="flex items-center gap-2">
+                  <button onClick={() => togglePayment(r)} className={`rounded-xl px-3 py-1.5 text-xs font-semibold ${statusColor(r.payment_status || "pendente")}`}>
+                    {r.payment_status || "pendente"}
+                  </button>
+                  <button onClick={() => deleteRegistration(r)} className="rounded-xl border border-red-500/20 px-2.5 py-1.5 text-xs text-red-400 hover:bg-red-500/10" title="Excluir inscrição">
+                    🗑️
+                  </button>
+                </div>
               </div>
               <div className="mt-3 flex flex-wrap gap-2">
                 <span className="text-xs text-white/40">Time:</span>
