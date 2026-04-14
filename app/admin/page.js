@@ -155,7 +155,7 @@ function TabInscricoes() {
                 <div>
                   <div className="font-bold">{r.full_name}</div>
                   <div className="mt-1 text-sm text-white/50">
-                    {r.phone} {r.age ? `• ${r.age} anos` : ""} {r.preferred_position ? `• ${r.preferred_position}` : ""}
+                    {r.phone} {r.age ? `• ${r.age} anos` : ""} {r.preferred_position ? `• ${r.preferred_position}` : ""} {r.nickname ? `• "${r.nickname}"` : ""}
                   </div>
                   <div className="mt-1.5 flex flex-wrap gap-2">
                     {r.resident_type && (
