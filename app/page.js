@@ -97,7 +97,7 @@ export default async function Home() {
         <div className="mx-auto max-w-7xl px-6 py-4">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex items-center gap-4">
-              <div className="rounded-2xl border-2 border-orange-500/30 bg-orange-500/10 p-1">
+              <div>
                 <img src="/logo-nipa.png" alt="Nova Ipanema" className="h-12 w-12 rounded-xl object-contain" />
               </div>
               <div>
