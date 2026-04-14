@@ -111,8 +111,8 @@ export default async function Home() {
             <div className="flex flex-wrap gap-2">
               {[["jogos","Jogos"],["classificacao","Classificação"],["premiacoes","Premiações"],["galeria","Galeria"],["inscricao","Inscrição"],["patrocinadores","Patrocinadores"]].map(([id, label]) => (
                 <a key={id} href={`#${id}`} style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: "999px", padding: "6px 16px", fontSize: "13px", color: "rgba(255,255,255,0.6)", transition: "all 0.2s" }}
-                  onMouseEnter={e => { e.target.style.borderColor = "rgba(249,115,22,0.4)"; e.target.style.color = "#fff"; }}
-                  onMouseLeave={e => { e.target.style.borderColor = "rgba(255,255,255,0.08)"; e.target.style.color = "rgba(255,255,255,0.6)"; }}>
+                  
+                  
                   {label}
                 </a>
               ))}
@@ -281,9 +281,9 @@ export default async function Home() {
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {round.photos.map((photo) => (
                     <div key={photo.id} style={{ overflow: "hidden", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.07)" }}>
-                      <img src={photo.image_url} alt={round.title} style={{ width: "100%", height: "220px", objectFit: "cover", transition: "transform 0.3s" }}
-                        onMouseEnter={e => e.target.style.transform = "scale(1.05)"}
-                        onMouseLeave={e => e.target.style.transform = "scale(1)"} />
+                      <img src={photo.image_url} alt={round.title} style={{ width: "100%", height: "220px", objectFit: "cover" }}
+                        
+                        
                     </div>
                   ))}
                 </div>
