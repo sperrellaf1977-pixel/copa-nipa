@@ -33,7 +33,7 @@ async function sbDelete(table, id) {
   return res;
 }
 
-const TABS = ["Inscrições", "Resultados", "Galeria"];
+const TABS = ["Inscrições", "Resultados", "Galeria", "Times"];
 
 export default function AdminPage() {
   const [tab, setTab] = useState("Inscrições");
@@ -63,6 +63,7 @@ export default function AdminPage() {
         {tab === "Inscrições" && <TabInscricoes />}
         {tab === "Resultados" && <TabResultados />}
         {tab === "Galeria" && <TabGaleria />}
+        {tab === "Times" && <TabTimes />}
       </div>
     </div>
   );
@@ -376,6 +377,187 @@ function TabGaleria() {
             </div>
           ))}
           {photos.length === 0 && <p className="text-white/40">Nenhuma foto ainda.</p>}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── ABA: TIMES ─────────────────────────────────────
+function TabTimes() {
+  const DEFAULT_NAMES = ["Time 1", "Time 2", "Time 3", "Time 4", "Time 5", "Time 6"];
+  const [teamNames, setTeamNames] = useState([...DEFAULT_NAMES]);
+  const [preview, setPreview] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [msg, setMsg] = useState("");
+
+  const POSITION_ORDER = ["Goleiro", "Defesa", "Lateral", "Meio", "Ataque", "Outros"];
+  const POS_COLOR = {
+    Goleiro: "text-yellow-400", Defesa: "text-blue-400",
+    Lateral: "text-sky-400", Meio: "text-green-400",
+    Ataque: "text-red-400", Outros: "text-white/40",
+  };
+
+  async function handlePreview() {
+    setLoading(true);
+    setMsg("");
+    setPreview(null);
+    const res = await fetch("/api/auto-teams", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ preview: true, teamNames }),
+    });
+    const json = await res.json();
+    if (json.error) setMsg("Erro: " + json.error);
+    else setPreview(json.teamStats);
+    setLoading(false);
+  }
+
+  async function handleConfirm() {
+    if (!confirm("Confirmar distribuição? Os times atuais serão substituídos.")) return;
+    setSaving(true);
+    setMsg("");
+    const res = await fetch("/api/auto-teams", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ preview: false, teamNames }),
+    });
+    const json = await res.json();
+    if (json.error) setMsg("Erro: " + json.error);
+    else { setMsg("✅ Times distribuídos com sucesso!"); setPreview(json.teamStats); }
+    setSaving(false);
+  }
+
+  return (
+    <div>
+      <p className="mb-6 text-sm text-white/50">
+        A distribuição usa o método <strong className="text-white">serpentina por posição</strong> — atletas são ordenados por nota em cada posição e distribuídos alternadamente entre os times para máximo equilíbrio.
+      </p>
+
+      {/* Nomes dos times */}
+      <div className="mb-6 rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+        <p className="mb-4 text-sm font-bold text-white">Nomes dos times <span className="font-normal text-white/40">(personalize com o nome dos patrocinadores)</span></p>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {teamNames.map((name, i) => (
+            <div key={i} className="flex items-center gap-2">
+              <span className="text-xs text-white/40 w-12">Time {i+1}</span>
+              <input
+                value={name}
+                onChange={(e) => {
+                  const updated = [...teamNames];
+                  updated[i] = e.target.value;
+                  setTeamNames(updated);
+                }}
+                className="flex-1 rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-sm outline-none placeholder:text-white/30"
+                placeholder={`Time ${i+1}`}
+              />
+            </div>
+          ))}
+        </div>
+        <button
+          onClick={() => setTeamNames([...DEFAULT_NAMES])}
+          className="mt-3 text-xs text-white/30 hover:text-white/60"
+        >
+          Resetar nomes
+        </button>
+      </div>
+
+      {/* Aviso */}
+      <div className="mb-6 rounded-2xl border border-yellow-500/20 bg-yellow-500/[0.05] p-4 text-sm text-yellow-300">
+        ⚠️ Apenas inscritos com <strong>pagamento confirmado</strong> e <strong>nota definida</strong> serão distribuídos.
+        Inscritos sem nota receberão nota 3 (média) por padrão.
+      </div>
+
+      {/* Botões */}
+      <div className="mb-6 flex gap-3">
+        <button
+          onClick={handlePreview}
+          disabled={loading}
+          className="rounded-2xl border border-[#1a8ad8] bg-[#1a8ad8]/10 px-6 py-3 text-sm font-semibold text-[#1a8ad8] disabled:opacity-50"
+        >
+          {loading ? "Calculando..." : "🔍 Ver prévia da distribuição"}
+        </button>
+        {preview && (
+          <button
+            onClick={handleConfirm}
+            disabled={saving}
+            className="rounded-2xl bg-orange-500 px-6 py-3 text-sm font-semibold text-white disabled:opacity-50"
+          >
+            {saving ? "Salvando..." : "✅ Confirmar e salvar times"}
+          </button>
+        )}
+      </div>
+
+      {msg && <p className={`mb-6 text-sm font-semibold ${msg.includes("✅") ? "text-green-400" : "text-red-400"}`}>{msg}</p>}
+
+      {/* Preview dos times */}
+      {preview && (
+        <div>
+          <p className="mb-4 text-sm font-bold text-white">Prévia da distribuição:</p>
+
+          {/* Resumo comparativo */}
+          <div className="mb-6 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02]">
+            <table className="w-full text-sm">
+              <thead className="bg-white/5">
+                <tr>
+                  <th className="px-4 py-3 text-left text-xs text-white/50">Time</th>
+                  <th className="px-4 py-3 text-center text-xs text-white/50">Atletas</th>
+                  <th className="px-4 py-3 text-center text-xs text-white/50">Nota média</th>
+                  <th className="px-4 py-3 text-center text-xs text-yellow-400">GOL</th>
+                  <th className="px-4 py-3 text-center text-xs text-blue-400">DEF</th>
+                  <th className="px-4 py-3 text-center text-xs text-sky-400">LAT</th>
+                  <th className="px-4 py-3 text-center text-xs text-green-400">MEI</th>
+                  <th className="px-4 py-3 text-center text-xs text-red-400">ATA</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(preview).map(([team, stats], i) => (
+                  <tr key={team} className={`border-t border-white/5 ${i % 2 === 0 ? "bg-white/[0.01]" : ""}`}>
+                    <td className="px-4 py-3 font-bold">{team}</td>
+                    <td className="px-4 py-3 text-center">{stats.count}</td>
+                    <td className="px-4 py-3 text-center font-bold text-orange-400">{stats.avgRating}</td>
+                    <td className="px-4 py-3 text-center text-yellow-400">{stats.posBreakdown?.Goleiro?.length || 0}</td>
+                    <td className="px-4 py-3 text-center text-blue-400">{stats.posBreakdown?.Defesa?.length || 0}</td>
+                    <td className="px-4 py-3 text-center text-sky-400">{stats.posBreakdown?.Lateral?.length || 0}</td>
+                    <td className="px-4 py-3 text-center text-green-400">{stats.posBreakdown?.Meio?.length || 0}</td>
+                    <td className="px-4 py-3 text-center text-red-400">{stats.posBreakdown?.Ataque?.length || 0}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Cards detalhados por time */}
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {Object.entries(preview).map(([team, stats]) => (
+              <div key={team} className="rounded-2xl border border-white/10 bg-white/[0.02] p-4">
+                <div className="mb-3 flex items-center justify-between">
+                  <span className="font-bold">{team}</span>
+                  <span className="rounded-lg bg-orange-500/20 px-2 py-1 text-xs font-bold text-orange-400">
+                    média {stats.avgRating} ⭐
+                  </span>
+                </div>
+                {POSITION_ORDER.map((pos) => {
+                  const players = stats.posBreakdown?.[pos] || [];
+                  if (!players.length) return null;
+                  return (
+                    <div key={pos} className="mb-2">
+                      <span className={`text-xs font-bold ${POS_COLOR[pos]}`}>{pos} ({players.length})</span>
+                      <div className="mt-1 grid gap-1">
+                        {players.map((p) => (
+                          <div key={p.id} className="flex items-center justify-between rounded-lg bg-black/20 px-3 py-1.5">
+                            <span className="text-xs text-white/80">{p.full_name}</span>
+                            <span className="text-xs text-orange-400 font-semibold">{p.rating ? `${p.rating}★` : "–"}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
