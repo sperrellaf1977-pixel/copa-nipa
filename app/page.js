@@ -110,9 +110,7 @@ export default async function Home() {
             </div>
             <div className="flex flex-wrap gap-2">
               {[["jogos","Jogos"],["classificacao","Classificação"],["premiacoes","Premiações"],["galeria","Galeria"],["inscricao","Inscrição"],["patrocinadores","Patrocinadores"]].map(([id, label]) => (
-                <a key={id} href={`#${id}`} style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: "999px", padding: "6px 16px", fontSize: "13px", color: "rgba(255,255,255,0.6)", transition: "all 0.2s" }}
-                  
-                  
+                <a key={id} href={`#${id}`} style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: "999px", padding: "6px 16px", fontSize: "13px", color: "rgba(255,255,255,0.6)" }}>
                   {label}
                 </a>
               ))}
