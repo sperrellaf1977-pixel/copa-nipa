@@ -280,8 +280,7 @@ export default async function Home() {
                   {round.photos.map((photo) => (
                     <div key={photo.id} style={{ overflow: "hidden", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.07)" }}>
                       <img src={photo.image_url} alt={round.title} style={{ width: "100%", height: "220px", objectFit: "cover" }}
-                        
-                        
+
                     </div>
                   ))}
                 </div>
