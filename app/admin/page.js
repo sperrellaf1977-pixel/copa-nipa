@@ -99,6 +99,14 @@ function TabInscricoes() {
     load();
   }
 
+  async function updateRating(item, rating) {
+    await fetch("/api/update-rating", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: item.id, rating }),
+    });
+    load();
+  }
+
   const filtered = registrations.filter((r) =>
     r.full_name?.toLowerCase().includes(search.toLowerCase()) || r.phone?.includes(search)
   );
@@ -146,6 +154,22 @@ function TabInscricoes() {
                 ))}
                 {r.team && (
                   <button onClick={() => updateTeam(r, null)} className="rounded-lg border border-red-500/20 px-2.5 py-1 text-xs text-red-400 hover:bg-red-500/10">Remover</button>
+                )}
+              </div>
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                <span className="text-xs text-white/40">Nota (1-5):</span>
+                {[1,2,3,4,5].map((n) => (
+                  <button key={n} onClick={() => updateRating(r, n)}
+                    className={`rounded-lg w-8 h-8 text-sm font-bold transition ${
+                      r.rating === n
+                        ? "bg-orange-500 text-white"
+                        : "border border-white/10 text-white/40 hover:border-orange-500/40 hover:text-orange-400"
+                    }`}>
+                    {n}
+                  </button>
+                ))}
+                {r.rating && (
+                  <span className="ml-2 text-xs text-orange-400 font-semibold">{"⭐".repeat(r.rating)}</span>
                 )}
               </div>
             </div>
