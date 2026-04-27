@@ -121,6 +121,10 @@ export default async function Home() {
         <div className="mx-auto max-w-7xl px-6 py-4">
           <div className="flex flex-wrap items-center justify-center gap-8 lg:gap-12">
             <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-orange-500/60 shrink-0">Patrocinadores</span>
+            <a href="#patrocinadores" className="flex items-center gap-2 opacity-100 shrink-0">
+              <img src="/logo-fatorial.png" alt="Fatorial XP" className="h-10 w-auto object-contain" style={{mixBlendMode:"screen"}} />
+            </a>
+            <div className="h-6 w-px bg-white/10 shrink-0" />
             {[
               { logo: "/logo-cocobambu.png", name: "Coco Bambu", url: "https://www.cocobambu.com.br" },
               { logo: "/logo-rao.png", name: "Grupo Rão", url: "https://www.mundorao.com" },
@@ -145,9 +149,16 @@ export default async function Home() {
 
         {/* HERO */}
         <section className="mb-20">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-2">
-            <span className="h-2 w-2 rounded-full bg-orange-500" />
-            <span className="text-sm font-semibold text-orange-400">Copa Nipa 2026 • 6 seleções • 7 sábados • Barra da Tijuca</span>
+          <div className="mb-4 flex flex-wrap items-center gap-3">
+            <div className="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-2">
+              <span className="h-2 w-2 rounded-full bg-orange-500" />
+              <span className="text-sm font-semibold text-orange-400">Copa Nipa 2026 • 6 seleções • 7 sábados • Barra da Tijuca</span>
+            </div>
+          </div>
+          <div className="mb-6 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3 w-fit">
+            <span className="text-xs text-white/40 uppercase tracking-widest shrink-0">Patrocinador Master</span>
+            <div className="h-4 w-px bg-white/10" />
+            <img src="/logo-fatorial.png" alt="Fatorial XP" className="h-8 w-auto object-contain" style={{mixBlendMode:"screen"}} />
           </div>
 
           <h1 className="mb-6 max-w-4xl text-5xl font-black leading-[0.95] tracking-[-0.04em] lg:text-7xl">
@@ -378,12 +389,14 @@ export default async function Home() {
           <div className="mb-10">
             <p className="mb-3 text-xs font-bold uppercase tracking-[0.3em] text-orange-500/70">Naming Rights</p>
             <h3 className="mb-5 text-2xl font-black">Copa Nipa Fatorial XP 2026</h3>
-            <div className="flex items-center justify-center rounded-2xl border border-orange-500/20 bg-orange-500/[0.05] p-8">
+            <a href="https://www.fatorial.com.br" target="_blank" rel="noreferrer"
+              className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-orange-500/30 bg-orange-500/[0.05] p-10 transition hover:bg-orange-500/[0.08]">
+              <img src="/logo-fatorial.png" alt="Fatorial XP" className="h-16 w-auto object-contain" style={{mixBlendMode:"screen"}} />
               <div className="text-center">
-                <div className="text-4xl font-black text-white">FATORIAL XP</div>
-                <div className="mt-2 text-sm text-orange-400">Naming Rights — Patrocinador Master</div>
+                <div className="text-sm font-bold text-orange-400">Naming Rights — Patrocinador Master</div>
+                <div className="mt-1 text-xs text-white/40">Copa Nipa Fatorial XP 2026</div>
               </div>
-            </div>
+            </a>
           </div>
 
           {/* PATROCINADORES DE TIME */}
