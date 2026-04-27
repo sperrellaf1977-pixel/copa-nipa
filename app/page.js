@@ -116,6 +116,31 @@ export default async function Home() {
         </div>
       </nav>
 
+      {/* BARRA DE PATROCINADORES NO TOPO */}
+      <div className="border-b border-white/5 bg-[#080d18]/80 backdrop-blur-sm">
+        <div className="mx-auto max-w-7xl px-6 py-3">
+          <div className="flex flex-wrap items-center justify-center gap-6 lg:gap-10">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/30 shrink-0">Patrocinadores</span>
+            {[
+              { logo: "/logo-cocobambu.png", name: "Coco Bambu", url: "https://www.cocobambu.com.br" },
+              { logo: "/logo-rao.png", name: "Grupo Rão", url: "https://www.mundorao.com" },
+              { logo: "/logo-ogro.png", name: "Ogro Steaks", url: "https://www.ogrosteaks.com.br" },
+              { logo: "/logo-amoedo.png", name: "Amoedo", url: "https://www.amoedo.com.br" },
+              { logo: "/logo-mitre.png", name: "Mitre", url: "https://www.mitre.com" },
+              { logo: "/logo-bittencourt.jfif", name: "Bittencourt Sports", url: null },
+              { logo: "/logo-netshoes.png", name: "Netshoes", url: "https://www.netshoes.com.br" },
+            ].map((p) => (
+              <a key={p.name} href={p.url || "#"} target={p.url ? "_blank" : "_self"} rel="noreferrer"
+                className="opacity-60 transition hover:opacity-100">
+                <img src={p.logo} alt={p.name}
+                  className={`object-contain ${p.name === "Ogro Steaks" ? "h-10" : "h-6"}`}
+                  style={{mixBlendMode:"screen"}} />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <main className="mx-auto max-w-7xl px-6 py-12 lg:px-10">
 
         {/* HERO */}
@@ -372,11 +397,11 @@ export default async function Home() {
                 { name: "Ogro Steaks", logo: "/logo-ogro.png", url: "https://www.ogrosteaks.com.br" },
                 { name: "Amoedo", logo: "/logo-amoedo.png", url: "https://www.amoedo.com.br" },
                 { name: "Mitre", logo: "/logo-mitre.png", url: "https://www.mitre.com" },
-                { name: "Bittencourt Sports", logo: "/logo-bittencourt.png", url: null },
+                { name: "Bittencourt Sports", logo: "/logo-bittencourt.jfif", url: null },
               ].map((p) => (
                 <a key={p.name} href={p.url || "#"} target={p.url ? "_blank" : "_self"} rel="noreferrer"
                   className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-white/7 bg-white/[0.02] p-5 transition hover:border-orange-500/30 hover:bg-white/[0.05]">
-                  <img src={p.logo} alt={p.name} className="h-12 w-full object-contain" style={{mixBlendMode:"screen"}} />
+                  <img src={p.logo} alt={p.name} className={`w-full object-contain ${p.name === "Ogro Steaks" ? "h-20" : "h-12"}`} style={{mixBlendMode:"screen"}} />
                   <span className="text-center text-xs text-white/40">{p.name}</span>
                 </a>
               ))}
