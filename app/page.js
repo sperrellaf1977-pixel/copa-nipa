@@ -401,7 +401,7 @@ export default async function Home() {
               ].map((p) => (
                 <a key={p.name} href={p.url || "#"} target={p.url ? "_blank" : "_self"} rel="noreferrer"
                   className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-white/7 bg-white/[0.02] p-5 transition hover:border-orange-500/30 hover:bg-white/[0.05]">
-                  <img src={p.logo} alt={p.name} className="h-20 w-full object-contain" style={{mixBlendMode:"screen"}} />
+                  <img src={p.logo} alt={p.name} className={`w-full object-contain ${p.name === "Bittencourt Sports" ? "h-28" : "h-20"}`} style={{mixBlendMode:"screen"}} />
                   <span className="text-center text-xs text-white/40">{p.name}</span>
                 </a>
               ))}
