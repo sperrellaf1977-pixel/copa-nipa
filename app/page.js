@@ -349,13 +349,49 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="mb-12">
-            <p className="mb-3 text-xs font-bold uppercase tracking-[0.3em] text-orange-500/70">Parceiros confirmados</p>
-            <h3 className="mb-6 text-2xl font-black">Marcas que já estão com a Copa Nipa</h3>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {confirmedPartners.map((p) => (
-                <div key={p} className="rounded-2xl border border-white/7 bg-white/[0.02] p-6 text-center font-bold">{p}</div>
+          {/* NAMING RIGHTS */}
+          <div className="mb-10">
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.3em] text-orange-500/70">Naming Rights</p>
+            <h3 className="mb-5 text-2xl font-black">Copa Nipa Fatorial XP 2026</h3>
+            <div className="flex items-center justify-center rounded-2xl border border-orange-500/20 bg-orange-500/[0.05] p-8">
+              <div className="text-center">
+                <div className="text-4xl font-black text-white">FATORIAL XP</div>
+                <div className="mt-2 text-sm text-orange-400">Naming Rights — Patrocinador Master</div>
+              </div>
+            </div>
+          </div>
+
+          {/* PATROCINADORES DE TIME */}
+          <div className="mb-10">
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.3em] text-orange-500/70">Patrocinadores de Time</p>
+            <h3 className="mb-5 text-2xl font-black">Marcas que nomeiam as equipes</h3>
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+              {[
+                { name: "Coco Bambu", logo: "/logo-cocobambu.png", url: "https://www.cocobambu.com.br" },
+                { name: "Grupo Rão", logo: "/logo-rao.png", url: "https://www.mundorao.com" },
+                { name: "Ogro Steaks", logo: "/logo-ogro.png", url: "https://www.ogrosteaks.com.br" },
+                { name: "Amoedo", logo: "/logo-amoedo.png", url: "https://www.amoedo.com.br" },
+                { name: "Mitre", logo: "/logo-mitre.png", url: "https://www.mitre.com" },
+                { name: "Bittencourt Sports", logo: "/logo-bittencourt.png", url: null },
+              ].map((p) => (
+                <a key={p.name} href={p.url || "#"} target={p.url ? "_blank" : "_self"} rel="noreferrer"
+                  className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-white/7 bg-white/[0.02] p-5 transition hover:border-orange-500/30 hover:bg-white/[0.05]">
+                  <img src={p.logo} alt={p.name} className="h-12 w-full object-contain" style={{mixBlendMode:"screen"}} />
+                  <span className="text-center text-xs text-white/40">{p.name}</span>
+                </a>
               ))}
+            </div>
+          </div>
+
+          {/* APOIO */}
+          <div className="mb-12">
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.3em] text-orange-500/70">Apoio</p>
+            <h3 className="mb-5 text-2xl font-black">Apoiadores do torneio</h3>
+            <div className="flex justify-center">
+              <a href="https://www.netshoes.com.br" target="_blank" rel="noreferrer"
+                className="flex items-center justify-center rounded-2xl border border-white/7 bg-white/[0.02] px-12 py-6 transition hover:border-orange-500/30 hover:bg-white/[0.05]">
+                <img src="/logo-netshoes.png" alt="Netshoes" className="h-10 object-contain" style={{mixBlendMode:"screen"}} />
+              </a>
             </div>
           </div>
 
