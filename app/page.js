@@ -35,12 +35,12 @@ function calcStandings(matches) {
 }
 
 const teamColors = {
-  "Amoedo":       { text: "text-yellow-400", bg: "bg-yellow-950",  border: "border-yellow-800" },
-  "Coco Bambu":   { text: "text-green-400",  bg: "bg-green-950",   border: "border-green-800" },
-  "Grupo Rão":    { text: "text-red-400",    bg: "bg-red-950",     border: "border-red-800" },
-  "Ogro Steaks":  { text: "text-orange-400", bg: "bg-orange-950",  border: "border-orange-800" },
-  "Bittencourt":  { text: "text-blue-400",   bg: "bg-blue-950",    border: "border-blue-800" },
-  "Mitre":        { text: "text-sky-400",    bg: "bg-sky-950",     border: "border-sky-800" },
+  "Amoedo":       { text: "text-red-600",    bg: "bg-yellow-400",  border: "border-yellow-300" },
+  "Coco Bambu":   { text: "text-white",      bg: "bg-amber-900",   border: "border-amber-800" },
+  "Grupo Rão":    { text: "text-red-600",    bg: "bg-white",       border: "border-gray-200" },
+  "Ogro Steaks":  { text: "text-white",      bg: "bg-green-700",   border: "border-green-600" },
+  "Bittencourt":  { text: "text-white",      bg: "bg-black",       border: "border-gray-700" },
+  "Mitre":        { text: "text-white",      bg: "bg-[#0a0e1a]",   border: "border-blue-900" },
 };
 const getTeam = (t) => teamColors[t] || { text: "text-white/70", bg: "bg-slate-900", border: "border-slate-700" };
 
