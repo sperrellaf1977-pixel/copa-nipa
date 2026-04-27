@@ -117,10 +117,10 @@ export default async function Home() {
       </nav>
 
       {/* BARRA DE PATROCINADORES NO TOPO */}
-      <div className="border-b border-white/5 bg-[#080d18]/80 backdrop-blur-sm">
-        <div className="mx-auto max-w-7xl px-6 py-3">
-          <div className="flex flex-wrap items-center justify-center gap-6 lg:gap-10">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/30 shrink-0">Patrocinadores</span>
+      <div className="border-b border-white/10 bg-[#080d18]">
+        <div className="mx-auto max-w-7xl px-6 py-4">
+          <div className="flex flex-wrap items-center justify-center gap-8 lg:gap-12">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-orange-500/60 shrink-0">Patrocinadores</span>
             {[
               { logo: "/logo-cocobambu.png", name: "Coco Bambu", url: "https://www.cocobambu.com.br" },
               { logo: "/logo-rao.png", name: "Grupo Rão", url: "https://www.mundorao.com" },
@@ -131,9 +131,9 @@ export default async function Home() {
               { logo: "/logo-netshoes.png", name: "Netshoes", url: "https://www.netshoes.com.br" },
             ].map((p) => (
               <a key={p.name} href={p.url || "#"} target={p.url ? "_blank" : "_self"} rel="noreferrer"
-                className="opacity-60 transition hover:opacity-100">
+                className="opacity-75 transition hover:opacity-100">
                 <img src={p.logo} alt={p.name}
-                  className={`object-contain ${p.name === "Ogro Steaks" ? "h-10" : "h-6"}`}
+                  className="h-8 w-auto object-contain"
                   style={{mixBlendMode:"screen"}} />
               </a>
             ))}
@@ -401,7 +401,7 @@ export default async function Home() {
               ].map((p) => (
                 <a key={p.name} href={p.url || "#"} target={p.url ? "_blank" : "_self"} rel="noreferrer"
                   className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-white/7 bg-white/[0.02] p-5 transition hover:border-orange-500/30 hover:bg-white/[0.05]">
-                  <img src={p.logo} alt={p.name} className={`w-full object-contain ${p.name === "Ogro Steaks" ? "h-20" : "h-12"}`} style={{mixBlendMode:"screen"}} />
+                  <img src={p.logo} alt={p.name} className="h-20 w-full object-contain" style={{mixBlendMode:"screen"}} />
                   <span className="text-center text-xs text-white/40">{p.name}</span>
                 </a>
               ))}
