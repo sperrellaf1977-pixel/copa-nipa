@@ -132,7 +132,7 @@ function TabInscricoes() {
     s === "pago" ? "bg-green-500/20 text-green-300" :
     s === "cancelado" ? "bg-red-500/20 text-red-300" : "bg-yellow-500/20 text-yellow-300";
 
-  const teams = ["Amoedo", "Coco Bambu", "Grupo Rão", "Ogro Steaks", "Bittencourt", "Mitre"];
+  const teams = ["Amoedo", "Coco Bambu", "Grupo Rão", "Ogro Steaks", "Bittencourt Sports", "Mitre"];
   const paid = registrations.filter((r) => r.payment_status === "pago").length;
 
   return (
