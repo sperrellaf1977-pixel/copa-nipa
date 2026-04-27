@@ -177,11 +177,11 @@ export default async function Home() {
                     <span className="text-white/30">{match.match_date}</span>
                   </div>
                   <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
-                    <div className={`rounded-xl border px-4 py-3 text-lg font-black ${ht.bg} ${ht.border} ${ht.text}`}>
+                    <div className={`rounded-xl border px-4 py-3 text-lg font-black text-center ${ht.bg} ${ht.border} ${ht.text}`}>
                       {match.home_team}
                     </div>
                     <div className={`min-w-[56px] text-center text-xl font-black ${done ? "text-orange-400" : "text-white/25"}`}>{score}</div>
-                    <div className={`rounded-xl border px-4 py-3 text-lg font-black text-right ${at.bg} ${at.border} ${at.text}`}>
+                    <div className={`rounded-xl border px-4 py-3 text-lg font-black text-center ${at.bg} ${at.border} ${at.text}`}>
                       {match.away_team}
                     </div>
                   </div>
