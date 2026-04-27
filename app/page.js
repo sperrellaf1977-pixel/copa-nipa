@@ -104,42 +104,13 @@ export default async function Home() {
         </div>
       </nav>
 
-      {/* BARRA DE PATROCINADORES */}
+      {/* BARRA FATORIAL */}
       <div className="border-b border-white/10 bg-[#080d18]">
-        <div className="mx-auto max-w-7xl px-6 py-5">
-          {/* Linha 1 - Naming */}
-          <div className="mb-5 flex justify-center">
+        <div className="mx-auto max-w-7xl px-6 py-4">
+          <div className="flex justify-center">
             <a href="https://www.fatorial.com.br" target="_blank" rel="noreferrer"
               className="opacity-90 transition hover:opacity-100">
-              <img src="/logo-fatorial.png" alt="Fatorial Investimentos XP" className="h-14 w-auto object-contain" style={{mixBlendMode:"screen"}} />
-            </a>
-          </div>
-          {/* Divisor */}
-          <div className="mb-5 flex items-center gap-4">
-            <div className="h-px flex-1 bg-white/5" />
-            <span className="text-[9px] uppercase tracking-[0.3em] text-white/20">Patrocinadores de Time</span>
-            <div className="h-px flex-1 bg-white/5" />
-          </div>
-          {/* Linha 2 - Times */}
-          <div className="mb-5 flex flex-wrap items-center justify-center gap-8 lg:gap-12">
-            {allSponsors.filter(s => s.tier === "time").map((p) => (
-              <a key={p.name} href={p.url || "#"} target={p.url ? "_blank" : "_self"} rel="noreferrer"
-                className="opacity-80 transition hover:opacity-100">
-                <img src={p.logo} alt={p.name} className="h-10 w-auto object-contain" style={{mixBlendMode:"screen"}} />
-              </a>
-            ))}
-          </div>
-          {/* Divisor */}
-          <div className="mb-5 flex items-center gap-4">
-            <div className="h-px flex-1 bg-white/5" />
-            <span className="text-[9px] uppercase tracking-[0.3em] text-white/20">Apoio</span>
-            <div className="h-px flex-1 bg-white/5" />
-          </div>
-          {/* Linha 3 - Apoio */}
-          <div className="flex justify-center">
-            <a href="https://www.netshoes.com.br" target="_blank" rel="noreferrer"
-              className="opacity-80 transition hover:opacity-100">
-              <img src="/logo-netshoes.png" alt="Netshoes" className="h-8 w-auto object-contain" style={{mixBlendMode:"screen"}} />
+              <img src="/logo-fatorial.png" alt="Fatorial Investimentos XP" className="h-12 w-auto object-contain" style={{mixBlendMode:"screen"}} />
             </a>
           </div>
         </div>
