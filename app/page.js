@@ -149,23 +149,25 @@ export default async function Home() {
 
         {/* HERO */}
         <section className="mb-20">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-2">
-            <span className="h-2 w-2 rounded-full bg-orange-500" />
-            <span className="text-sm font-semibold text-orange-400">Copa Nipa 2026 • 6 times • 7 sábados • Barra da Tijuca</span>
+          <div className="mb-6 flex justify-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-2">
+              <span className="h-2 w-2 rounded-full bg-orange-500" />
+              <span className="text-sm font-semibold text-orange-400">Copa Nipa 2026 • 6 times • 7 sábados • Barra da Tijuca</span>
+            </div>
           </div>
 
-          <h1 className="mb-6 max-w-4xl text-5xl font-black leading-[0.95] tracking-[-0.04em] lg:text-7xl">
+          <h1 className="mb-6 w-full text-center text-5xl font-black leading-[0.95] tracking-[-0.04em] lg:text-7xl">
             <span className="text-orange-500">O melhor torneio</span><br />
             <span className="text-orange-500">de futebol society</span><br />
             da Barra da Tijuca
           </h1>
 
-          <p className="mb-10 max-w-xl text-lg leading-relaxed text-white/60">
+          <p className="mb-10 w-full text-center text-lg leading-relaxed text-white/60">
             A Copa Nipa nasce com posicionamento forte, visual moderno e espírito competitivo.
             Um campeonato com identidade própria e calendário definido.
           </p>
 
-          <div className="mb-14 flex flex-wrap gap-3">
+          <div className="mb-14 flex flex-wrap justify-center gap-3">
             <a href="#inscricao" className="rounded-2xl bg-orange-500 px-7 py-3.5 text-sm font-bold text-white shadow-[0_8px_32px_rgba(249,115,22,0.35)] transition hover:bg-orange-600">
               Fazer inscrição
             </a>
@@ -174,7 +176,7 @@ export default async function Home() {
             </a>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="mx-auto grid max-w-2xl gap-4 sm:grid-cols-3">
             {[["7","sábados de competição","border-t-orange-500"],["R$ 120","inscrição com uniforme","border-t-green-500"],["Top 4","avançam para semifinal","border-t-blue-500"]].map(([v,l,c]) => (
               <div key={l} className={`rounded-2xl border border-white/7 bg-white/[0.02] p-6 border-t-2 ${c}`}>
                 <div className="text-3xl font-black text-white">{v}</div>
@@ -344,7 +346,7 @@ export default async function Home() {
 
           {/* Naming */}
           <div className="mb-10 flex flex-col items-center">
-            <p className="mb-6 text-[10px] font-bold uppercase tracking-[0.3em] text-white/30">Naming Rights</p>
+            <p className="mb-6 text-[10px] font-bold uppercase tracking-[0.3em] text-white/30">Patrocinador Master</p>
             <a href="https://www.fatorial.com.br" target="_blank" rel="noreferrer"
               className="transition hover:scale-105">
               <img src="/logo-fatorial.png" alt="Fatorial Investimentos XP" className="h-20 w-auto object-contain" style={{mixBlendMode:"screen"}} />
@@ -354,12 +356,12 @@ export default async function Home() {
           {/* Times */}
           <div className="mb-10">
             <p className="mb-6 text-center text-[10px] font-bold uppercase tracking-[0.3em] text-white/30">Patrocinadores de Time</p>
-            <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
+            <div className="flex w-full items-stretch gap-3">
               {allSponsors.filter(s => s.tier === "time").map((p) => (
                 <a key={p.name} href={p.url || "#"} target={p.url ? "_blank" : "_self"} rel="noreferrer"
-                  className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-white/7 bg-white/[0.02] p-5 transition hover:border-orange-500/30 hover:bg-white/[0.05]">
+                  className="flex flex-1 flex-col items-center justify-center gap-3 rounded-2xl border border-white/7 bg-white/[0.02] p-5 transition hover:border-orange-500/30 hover:bg-white/[0.05]">
                   <img src={p.logo} alt={p.name}
-                    className={`w-full object-contain ${p.name === "Bittencourt Sports" ? "h-24" : "h-20"}`}
+                    className="h-24 w-full object-contain"
                     style={{mixBlendMode:"screen"}} />
                   <span className="text-center text-xs text-white/40">{p.name}</span>
                 </a>
