@@ -86,7 +86,7 @@ export default async function Home() {
         <div className="mx-auto max-w-7xl px-6 py-4">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex items-center gap-4">
-              <img src="/logo-nipa.png" alt="Nova Ipanema" className="h-16 w-16 object-contain rounded-full" />
+              <img src="/logo-nipa.jfif" alt="Nova Ipanema" className="h-16 w-16 object-contain rounded-full" />
               <div>
                 <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-orange-500/70">Nova Ipanema</div>
                 <div className="text-lg font-black tracking-tight leading-tight">Copa Nipa</div>
@@ -382,7 +382,7 @@ export default async function Home() {
         {/* RODAPÉ */}
         <footer className="mt-20 flex flex-wrap items-center justify-between gap-4 border-t border-white/[0.06] pt-10">
           <div className="flex items-center gap-3">
-            <img src="/logo-nipa.png" alt="Nova Ipanema" className="h-14 w-14 object-contain rounded-full" />
+            <img src="/logo-nipa.jfif" alt="Nova Ipanema" className="h-14 w-14 object-contain rounded-full" />
             <div>
               <div className="font-black">Copa Nipa Fatorial Investimentos XP</div>
               <div className="text-xs text-white/40">Nova Ipanema — Barra da Tijuca — 2026</div>
