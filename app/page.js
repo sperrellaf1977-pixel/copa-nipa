@@ -39,7 +39,7 @@ const teamColors = {
   "Coco Bambu":   { text: "text-white",      bg: "bg-amber-900",   border: "border-amber-800" },
   "Grupo Rão":    { text: "text-red-600",    bg: "bg-white",       border: "border-gray-200" },
   "Ogro Steaks":  { text: "text-white",      bg: "bg-green-700",   border: "border-green-600" },
-  "Bittencourt":  { text: "text-white",      bg: "bg-black",       border: "border-gray-700" },
+  "Bittencourt Sports":  { text: "text-white",      bg: "bg-black",       border: "border-gray-700" },
   "Mitre":        { text: "text-white",      bg: "bg-[#0a0e1a]",   border: "border-blue-900" },
 };
 const getTeam = (t) => teamColors[t] || { text: "text-white/70", bg: "bg-slate-900", border: "border-slate-700" };
