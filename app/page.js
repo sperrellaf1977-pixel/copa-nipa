@@ -206,12 +206,12 @@ export default async function Home() {
                     <span className="text-white/30">{match.match_date}</span>
                   </div>
                   <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
-                    <div className={`rounded-xl border px-4 py-3 text-base font-bold ${ht.bg} ${ht.border} ${ht.text}`}>
-                      ⚽ {match.home_team}
+                    <div className={`rounded-xl border px-4 py-3 text-lg font-black ${ht.bg} ${ht.border} ${ht.text}`}>
+                      {match.home_team}
                     </div>
                     <div className={`min-w-[56px] text-center text-xl font-black ${done ? "text-orange-400" : "text-white/25"}`}>{score}</div>
-                    <div className={`rounded-xl border px-4 py-3 text-base font-bold text-right ${at.bg} ${at.border} ${at.text}`}>
-                      {match.away_team} ⚽
+                    <div className={`rounded-xl border px-4 py-3 text-lg font-black text-right ${at.bg} ${at.border} ${at.text}`}>
+                      {match.away_team}
                     </div>
                   </div>
                   <p className={`mt-2 text-xs ${done ? "text-orange-500/50" : "text-white/20"}`}>{match.status}</p>
@@ -241,7 +241,7 @@ export default async function Home() {
                   <tr key={row.team} className={`border-t border-white/[0.04] ${i < 4 ? "bg-orange-500/[0.03]" : ""}`}>
                     <td className={`px-4 py-4 font-bold ${i < 4 ? "text-orange-400" : "text-white/30"}`}>{i + 1}</td>
                     <td className="px-4 py-4 font-semibold">
-                      ⚽ {row.team}
+                      {row.team}
                       {i < 4 && <span className="ml-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-2 py-0.5 text-[10px] text-orange-400">↑ Semi</span>}
                     </td>
                     <td className="px-4 py-4 text-lg font-black text-orange-400">{row.pts}</td>
