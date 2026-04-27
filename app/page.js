@@ -327,13 +327,22 @@ export default async function Home() {
           {/* Times */}
           <div className="mb-10">
             <p className="mb-6 text-center text-[10px] font-bold uppercase tracking-[0.3em] text-white/30">Patrocinadores de Time</p>
-            <div className="flex w-full items-stretch gap-3">
+            {/* Desktop */}
+            <div className="hidden lg:flex w-full items-stretch gap-3">
               {allSponsors.filter(s => s.tier === "time").map((p) => (
                 <a key={p.name} href={p.url || "#"} target={p.url ? "_blank" : "_self"} rel="noreferrer"
                   className="flex flex-1 flex-col items-center justify-center gap-3 rounded-2xl border border-white/7 bg-white/[0.02] p-5 transition hover:border-orange-500/30 hover:bg-white/[0.05]">
-                  <img src={p.logo} alt={p.name}
-                    className="h-24 w-full object-contain"
-                    style={{mixBlendMode:"screen"}} />
+                  <img src={p.logo} alt={p.name} className="h-24 w-full object-contain" style={{mixBlendMode:"screen"}} />
+                  <span className="text-center text-xs text-white/40">{p.name}</span>
+                </a>
+              ))}
+            </div>
+            {/* Mobile - grid 2 colunas */}
+            <div className="grid grid-cols-2 gap-3 lg:hidden">
+              {allSponsors.filter(s => s.tier === "time").map((p) => (
+                <a key={p.name} href={p.url || "#"} target={p.url ? "_blank" : "_self"} rel="noreferrer"
+                  className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-white/7 bg-white/[0.02] p-5 transition hover:border-orange-500/30">
+                  <img src={p.logo} alt={p.name} className="h-16 w-full object-contain" style={{mixBlendMode:"screen"}} />
                   <span className="text-center text-xs text-white/40">{p.name}</span>
                 </a>
               ))}
