@@ -1,6 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
 import RegistrationForm from "../components/RegistrationForm";
-import MatchRow from "../components/MatchRow";
 
 async function getData() {
   const supabase = createClient(
@@ -179,8 +178,23 @@ export default async function Home() {
                   </div>
                   <div className="overflow-hidden rounded-xl border border-white/7 bg-white/[0.02]">
                     {stageMatches.map((match, i) => {
+                      const ht = getTeam(match.home_team);
+                      const at = getTeam(match.away_team);
+                      const done = match.status === "Finalizado";
+                      const score = match.home_score !== null && match.away_score !== null
+                        ? `${match.home_score} — ${match.away_score}` : "x";
                       return (
-                        <MatchRow key={match.id} match={match} isFirst={i === 0} />
+                        <div key={match.id} style={{display:"grid", gridTemplateColumns:"1fr auto 1fr", alignItems:"center", gap:"8px", padding:"10px 16px", borderTop: i > 0 ? "1px solid rgba(255,255,255,0.05)" : "none"}}>
+                          <span className={`rounded-lg px-3 py-2 text-sm font-bold text-center border ${ht.bg} ${ht.border} ${ht.text}`}>
+                            {match.home_team}
+                          </span>
+                          <span className={`min-w-[52px] text-center text-base font-black ${done ? "text-orange-400" : "text-white/25"}`}>
+                            {score}
+                          </span>
+                          <span className={`rounded-lg px-3 py-2 text-sm font-bold text-center border ${at.bg} ${at.border} ${at.text}`}>
+                            {match.away_team}
+                          </span>
+                        </div>
                       );
                     })}
                   </div>
