@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import RegistrationForm from "../components/RegistrationForm";
+import MatchRow from "../components/MatchRow";
 
 async function getData() {
   const supabase = createClient(
@@ -178,24 +179,7 @@ export default async function Home() {
                   </div>
                   <div className="overflow-hidden rounded-xl border border-white/7 bg-white/[0.02]">
                     {stageMatches.map((match, i) => {
-                      const ht = getTeam(match.home_team);
-                      const at = getTeam(match.away_team);
-                      const done = match.status === "Finalizado";
-                      const score = match.home_score !== null && match.away_score !== null
-                        ? `${match.home_score} — ${match.away_score}` : "x";
-                      return (
-                        <div key={match.id} style={{display:"grid", gridTemplateColumns:"1fr auto 1fr", alignItems:"center", gap:"8px", padding:"10px 16px", borderTop: i > 0 ? "1px solid rgba(255,255,255,0.05)" : "none"}}>
-                          <span style={{...ht, borderRadius:"8px", padding:"8px 12px", fontSize:"14px", fontWeight:"800", textAlign:"center", display:"block"}}>
-                            {match.home_team}
-                          </span>
-                          <span style={{minWidth:"52px", textAlign:"center", fontSize:"16px", fontWeight:"900", color: done ? "#f97316" : "rgba(255,255,255,0.2)"}}>
-                            {score}
-                          </span>
-                          <span style={{...at, borderRadius:"8px", padding:"8px 12px", fontSize:"14px", fontWeight:"800", textAlign:"center", display:"block"}}>
-                            {match.away_team}
-                          </span>
-                        </div>
-                      );
+                      return <MatchRow key={match.id} match={match} isFirst={i === 0} />;
                     })}
                   </div>
                 </div>
