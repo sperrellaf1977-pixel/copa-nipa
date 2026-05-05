@@ -185,13 +185,13 @@ export default async function Home() {
                         ? `${match.home_score} — ${match.away_score}` : "x";
                       return (
                         <div key={match.id} className={`grid grid-cols-[1fr_auto_1fr] items-center gap-2 px-4 py-3 ${i > 0 ? "border-t border-white/5" : ""}`}>
-                          <span className="rounded-lg px-3 py-2 text-sm font-bold text-center" style={ht.style}>
+                          <span style={{...ht.style, borderRadius:"10px", padding:"8px 12px", fontSize:"14px", fontWeight:"800", textAlign:"center", display:"block"}}>
                             {match.home_team}
                           </span>
-                          <span className={`min-w-[52px] text-center text-base font-black ${done ? "text-orange-400" : "text-white/25"}`}>
+                          <span style={{minWidth:"52px", textAlign:"center", fontSize:"16px", fontWeight:"900", color: done ? "#f97316" : "rgba(255,255,255,0.25)"}}>
                             {score}
                           </span>
-                          <span className="rounded-lg px-3 py-2 text-sm font-bold text-center" style={at.style}>
+                          <span style={{...at.style, borderRadius:"10px", padding:"8px 12px", fontSize:"14px", fontWeight:"800", textAlign:"center", display:"block"}}>
                             {match.away_team}
                           </span>
                         </div>
