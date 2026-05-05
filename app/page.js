@@ -163,33 +163,45 @@ export default async function Home() {
             <p className="text-xs font-bold uppercase tracking-[0.3em] text-orange-500/70">Jogos</p>
             <h2 className="mt-2 text-3xl font-black tracking-tight">Calendário oficial</h2>
           </div>
-          <div className="grid gap-3">
-            {matches.map((match) => {
-              const ht = getTeam(match.home_team);
-              const at = getTeam(match.away_team);
-              const done = match.status === "Finalizado";
-              const score = match.home_score !== null && match.away_score !== null
-                ? `${match.home_score} x ${match.away_score}` : "VS";
+          {(() => {
+            const stages = [...new Set(matches.map(m => m.stage))];
+            return stages.map(stage => {
+              const stageMatches = matches.filter(m => m.stage === stage);
+              const date = stageMatches[0]?.match_date || "";
+              const isFinal = stage === "Final" || stage === "Grande Final";
               return (
-                <div key={match.id} className={`rounded-2xl border p-5 ${done ? "border-orange-500/20 bg-orange-500/[0.04]" : "border-white/6 bg-white/[0.02]"}`}>
-                  <div className="mb-3 flex justify-between text-xs">
-                    <span className={`font-bold uppercase tracking-wider ${done ? "text-orange-400" : "text-white/30"}`}>{match.stage}</span>
-                    <span className="text-white/30">{match.match_date}</span>
+                <div key={stage} className="mb-5">
+                  <div className={`mb-2 flex items-center gap-3 rounded-xl px-4 py-2.5 ${isFinal ? "bg-orange-500/10 border border-orange-500/20" : "bg-white/[0.03]"}`}>
+                    <span className={`text-sm font-black uppercase tracking-wide ${isFinal ? "text-orange-400" : "text-white"}`}>{stage}</span>
+                    <div className="h-px flex-1 bg-white/10" />
+                    <span className="text-xs text-white/40">{date}</span>
                   </div>
-                  <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
-                    <div className={`rounded-xl border px-4 py-3 text-lg font-black text-center ${ht.bg} ${ht.border} ${ht.text}`}>
-                      {match.home_team}
-                    </div>
-                    <div className={`min-w-[56px] text-center text-xl font-black ${done ? "text-orange-400" : "text-white/25"}`}>{score}</div>
-                    <div className={`rounded-xl border px-4 py-3 text-lg font-black text-center ${at.bg} ${at.border} ${at.text}`}>
-                      {match.away_team}
-                    </div>
+                  <div className="overflow-hidden rounded-xl border border-white/7 bg-white/[0.02]">
+                    {stageMatches.map((match, i) => {
+                      const ht = getTeam(match.home_team);
+                      const at = getTeam(match.away_team);
+                      const done = match.status === "Finalizado";
+                      const score = match.home_score !== null && match.away_score !== null
+                        ? `${match.home_score} — ${match.away_score}` : "x";
+                      return (
+                        <div key={match.id} className={`grid grid-cols-[1fr_auto_1fr] items-center gap-2 px-4 py-3 ${i > 0 ? "border-t border-white/5" : ""}`}>
+                          <span className={`rounded-lg px-3 py-2 text-sm font-bold text-center ${ht.bg} ${ht.border} border ${ht.text}`}>
+                            {match.home_team}
+                          </span>
+                          <span className={`min-w-[52px] text-center text-base font-black ${done ? "text-orange-400" : "text-white/25"}`}>
+                            {score}
+                          </span>
+                          <span className={`rounded-lg px-3 py-2 text-sm font-bold text-center ${at.bg} ${at.border} border ${at.text}`}>
+                            {match.away_team}
+                          </span>
+                        </div>
+                      );
+                    })}
                   </div>
-                  <p className={`mt-2 text-xs ${done ? "text-orange-500/50" : "text-white/20"}`}>{match.status}</p>
                 </div>
               );
-            })}
-          </div>
+            });
+          })()}
         </section>
 
         {/* CLASSIFICAÇÃO */}
