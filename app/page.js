@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import RegistrationForm from "../components/RegistrationForm";
+import MatchRow from "../components/MatchRow";
 
 async function getData() {
   const supabase = createClient(
@@ -178,23 +179,8 @@ export default async function Home() {
                   </div>
                   <div className="overflow-hidden rounded-xl border border-white/7 bg-white/[0.02]">
                     {stageMatches.map((match, i) => {
-                      const ht = getTeam(match.home_team);
-                      const at = getTeam(match.away_team);
-                      const done = match.status === "Finalizado";
-                      const score = match.home_score !== null && match.away_score !== null
-                        ? `${match.home_score} — ${match.away_score}` : "x";
                       return (
-                        <div key={match.id} className={`grid grid-cols-[1fr_auto_1fr] items-center gap-2 px-4 py-3 ${i > 0 ? "border-t border-white/5" : ""}`}>
-                          <span style={{...ht.style, borderRadius:"10px", padding:"8px 12px", fontSize:"14px", fontWeight:"800", textAlign:"center", display:"block"}}>
-                            {match.home_team}
-                          </span>
-                          <span style={{minWidth:"52px", textAlign:"center", fontSize:"16px", fontWeight:"900", color: done ? "#f97316" : "rgba(255,255,255,0.25)"}}>
-                            {score}
-                          </span>
-                          <span style={{...at.style, borderRadius:"10px", padding:"8px 12px", fontSize:"14px", fontWeight:"800", textAlign:"center", display:"block"}}>
-                            {match.away_team}
-                          </span>
-                        </div>
+                        <MatchRow key={match.id} match={match} isFirst={i === 0} />
                       );
                     })}
                   </div>
