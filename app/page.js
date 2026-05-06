@@ -294,9 +294,28 @@ export default async function Home() {
                   As inscrições são individuais, no valor de R$ 120, com direito a uniforme completo: camisa e calção.
                   O atleta informa sua posição preferida para ajudar na montagem equilibrada das equipes.
                 </p>
-                <div className="mt-6 inline-flex rounded-2xl border border-green-500/25 bg-green-500/10 px-5 py-3 text-sm font-semibold text-green-400">
-                  💰 R$ 120 — inclui camisa + calção
+
+                <div className="mt-6 rounded-2xl border border-orange-500/25 bg-orange-500/[0.07] p-5">
+                  <p className="text-sm font-bold text-orange-400 uppercase tracking-wide mb-3">⚠️ Atenção — Inscrição válida somente após pagamento</p>
+                  <p className="text-sm text-white/70 leading-relaxed mb-3">
+                    A inscrição será considerada <strong className="text-white">VÁLIDA</strong> somente após o recebimento do comprovante de depósito.
+                  </p>
+                  <div className="grid gap-2">
+                    <div className="rounded-xl bg-black/20 px-4 py-3">
+                      <p className="text-xs text-white/40 mb-1">Chave PIX</p>
+                      <p className="text-sm font-bold text-white">📱 21974435364</p>
+                      <p className="text-xs text-white/50">Nova Ipanema Condomínio</p>
+                    </div>
+                    <div className="rounded-xl bg-black/20 px-4 py-3">
+                      <p className="text-xs text-white/40 mb-1">Enviar comprovante para</p>
+                      <a href="https://wa.me/5521982930570" target="_blank" rel="noreferrer"
+                        className="text-sm font-bold text-green-400 hover:text-green-300">
+                        💬 WhatsApp Junior — (21) 98293-0570
+                      </a>
+                    </div>
+                  </div>
                 </div>
+
                 <p className="mt-4 text-sm text-white/40">Posições: ataque • meio • defesa • lateral • goleiro</p>
               </div>
               <RegistrationForm />
