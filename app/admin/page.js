@@ -242,7 +242,7 @@ function TabResultados() {
     setSaving(true);
     const homeScore = form.home_score !== "" ? parseInt(form.home_score) : null;
     const awayScore = form.away_score !== "" ? parseInt(form.away_score) : null;
-    const status = homeScore !== null && awayScore !== null ? "Finalizado" : form.status;
+    const status = form.status;
     await fetch("/api/update-match", {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: match.id, home_score: homeScore, away_score: awayScore, status }),
