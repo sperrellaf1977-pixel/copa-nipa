@@ -55,13 +55,14 @@ const awards = [
 
 const allSponsors = [
   { logo: "/logo-fatorial.png", name: "Fatorial Investimentos XP", url: "https://www.fatorial.com.br", tier: "naming" },
-  { logo: "/logo-amoedo.png", name: "Amoedo", url: "https://www.amoedo.com.br", tier: "time" },
+  { logo: "/logo-lra.png", name: "LRA", url: null, tier: "time" },
   { logo: "/logo-rao.png", name: "Grupo Rão", url: "https://www.mundorao.com", tier: "time" },
   { logo: "/logo-ogro.png", name: "Ogro Steaks", url: "https://www.ogrosteaks.com.br", tier: "time" },
   { logo: "/logo-cocobambu.png", name: "Coco Bambu", url: "https://www.cocobambu.com.br", tier: "time" },
   { logo: "/logo-mitre.png", name: "Mitre", url: "https://www.mitre.com", tier: "time" },
   { logo: "/logo-bittencourt.jfif", name: "Bittencourt Sports", url: null, tier: "time" },
   { logo: "/logo-netshoes.png", name: "Netshoes", url: "https://www.netshoes.com.br", tier: "apoio" },
+  { logo: "/logo-amoedo.png", name: "Amoedo", url: "https://www.amoedo.com.br", tier: "apoio" },
 ];
 
 export const revalidate = 0;
@@ -367,10 +368,14 @@ export default async function Home() {
           {/* Apoio */}
           <div className="flex flex-col items-center">
             <p className="mb-6 text-[10px] font-bold uppercase tracking-[0.3em] text-white/30">Apoio</p>
-            <a href="https://www.netshoes.com.br" target="_blank" rel="noreferrer"
-              className="flex items-center justify-center rounded-2xl border border-white/7 bg-white/[0.02] px-16 py-8 transition hover:border-orange-500/30 hover:bg-white/[0.05]">
-              <img src="/logo-netshoes.png" alt="Netshoes" className="h-12 object-contain" style={{mixBlendMode:"screen"}} />
-            </a>
+            <div className="flex flex-wrap justify-center gap-6">
+              {allSponsors.filter(s => s.tier === "apoio").map((p) => (
+                <a key={p.name} href={p.url || "#"} target={p.url ? "_blank" : "_self"} rel="noreferrer"
+                  className="flex items-center justify-center rounded-2xl border border-white/7 bg-white/[0.02] px-10 py-6 transition hover:border-orange-500/30 hover:bg-white/[0.05]">
+                  <img src={p.logo} alt={p.name} className="h-12 object-contain" style={{mixBlendMode:"screen"}} />
+                </a>
+              ))}
+            </div>
           </div>
         </section>
 
