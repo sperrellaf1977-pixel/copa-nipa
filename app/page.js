@@ -46,11 +46,10 @@ const teamColors = {
 const getTeam = (t) => teamColors[t] || { text: "text-white/70", bg: "bg-slate-900", border: "border-slate-700" };
 
 const awards = [
-  { title: "Craque de cada jogo", icon: "⭐" },
-  { title: "Craque da rodada", icon: "🏅" },
-  { title: "Artilheiro", icon: "⚽" },
-  { title: "Melhor goleiro", icon: "🧤" },
-  { title: "Craque do torneio", icon: "🏆" },
+  { title: "Melhor Jogador do Torneio", icon: "🏆", desc: "O craque que brilhou em toda a competição" },
+  { title: "Melhor Goleiro", icon: "🧤", desc: "O guardião mais decisivo do campeonato" },
+  { title: "Artilheiro", icon: "⚽", desc: "O maior goleador da Copa Nipa" },
+  { title: "Prêmio Fair Play Sr. Ary", icon: "🤝", desc: "Homenagem ao espírito esportivo" },
 ];
 
 const allSponsors = [
@@ -233,13 +232,18 @@ export default async function Home() {
           <div className="mb-8">
             <p className="text-xs font-bold uppercase tracking-[0.3em] text-orange-500/70">Premiações</p>
             <h2 className="mt-2 text-3xl font-black tracking-tight">Destaques do torneio</h2>
+            <p className="mt-2 text-sm text-white/40">Todos os prêmios são patrocinados pela Netshoes</p>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {awards.map((award) => (
-              <div key={award.title} className="rounded-2xl border border-white/7 bg-white/[0.02] p-6 text-center">
-                <div className="mb-3 text-3xl">{award.icon}</div>
-                <div className="text-sm font-bold">{award.title}</div>
-                <div className="mt-2 text-xs text-white/40">Acompanhamento durante o torneio</div>
+              <div key={award.title} className="rounded-2xl border border-white/7 bg-white/[0.02] p-6 text-center flex flex-col items-center">
+                <div className="mb-3 text-4xl">{award.icon}</div>
+                <div className="text-base font-black text-white mb-2">{award.title}</div>
+                <div className="text-xs text-white/40 mb-4">{award.desc}</div>
+                <div className="mt-auto pt-4 border-t border-white/7 w-full flex flex-col items-center gap-2">
+                  <span className="text-[10px] uppercase tracking-widest text-white/30">Prêmio</span>
+                  <img src="/logo-netshoes.png" alt="Netshoes" className="h-5 object-contain" style={{mixBlendMode:"screen"}} />
+                </div>
               </div>
             ))}
           </div>
