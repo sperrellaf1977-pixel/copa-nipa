@@ -55,7 +55,7 @@ const awards = [
 
 const allSponsors = [
   { logo: "/logo-fatorial.png", name: "Fatorial Investimentos XP", url: "https://www.fatorial.com.br", tier: "naming" },
-  { logo: "/logo-lra.png", name: "LRA", url: null, tier: "time" },
+  { logo: "/logo-lra.png", name: "LRA", url: "https://www.lraincorporadora.com.br", tier: "time" },
   { logo: "/logo-rao.png", name: "Grupo Rão", url: "https://www.mundorao.com", tier: "time" },
   { logo: "/logo-ogro.png", name: "Ogro Steaks", url: "https://www.ogrosteaks.com.br", tier: "time" },
   { logo: "/logo-cocobambu.png", name: "Coco Bambu", url: "https://www.cocobambu.com.br", tier: "time" },
