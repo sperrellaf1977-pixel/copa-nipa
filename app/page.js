@@ -95,7 +95,7 @@ export default async function Home() {
               </div>
             </div>
             <div className="flex flex-wrap gap-2">
-              {[["jogos","Jogos"],["classificacao","Classificação"],["premiacoes","Premiações"],["galeria","Galeria"],["inscricao","Inscrição"],["patrocinadores","Patrocinadores"]].map(([id, label]) => (
+              {[["jogos","Jogos"],["classificacao","Classificação"],["premiacoes","Premiações"],["galeria","Galeria"],["regulamento","Regulamento"],["inscricao","Inscrição"],["patrocinadores","Patrocinadores"]].map(([id, label]) => (
                 <a key={id} href={`#${id}`} className="rounded-full border border-white/10 px-4 py-2 text-sm text-white/60 transition hover:border-orange-500/40 hover:text-white">
                   {label}
                 </a>
@@ -124,7 +124,7 @@ export default async function Home() {
           <div className="mb-6 flex justify-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-2">
               <span className="h-2 w-2 rounded-full bg-orange-500" />
-              <span className="text-sm font-semibold text-orange-400">Copa Nipa 2026 • 6 times • 7 sábados • Barra da Tijuca</span>
+              <span className="text-sm font-semibold text-orange-400">Copa Nipa 2026 • 6 times • 8 sábados • Barra da Tijuca</span>
             </div>
           </div>
 
@@ -149,7 +149,7 @@ export default async function Home() {
           </div>
 
           <div className="mx-auto grid max-w-2xl gap-4 sm:grid-cols-3">
-            {[["7","sábados de competição","border-t-orange-500"],["R$ 120","inscrição com uniforme","border-t-green-500"],["Top 4","avançam para semifinal","border-t-blue-500"]].map(([v,l,c]) => (
+            {[["8","sábados de competição","border-t-orange-500"],["R$ 120","inscrição com uniforme","border-t-green-500"],["Top 4","avançam para semifinal","border-t-blue-500"]].map(([v,l,c]) => (
               <div key={l} className={`rounded-2xl border border-white/7 bg-white/[0.02] p-6 border-t-2 ${c}`}>
                 <div className="text-3xl font-black text-white">{v}</div>
                 <div className="mt-2 text-sm text-white/50">{l}</div>
@@ -286,6 +286,17 @@ export default async function Home() {
               </div>
             ))
           )}
+        </section>
+
+        {/* REGULAMENTO */}
+        <section id="regulamento" className="mb-20">
+          <div className="mb-8">
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-orange-500/70">Regulamento</p>
+            <h2 className="mt-2 text-3xl font-black tracking-tight">Regulamento Oficial</h2>
+          </div>
+          <div className="overflow-hidden rounded-2xl border border-white/7">
+            <img src="/regulamento.jpeg" alt="Regulamento Copa Nova Ipanema 2026" className="w-full object-contain" />
+          </div>
         </section>
 
         {/* INSCRIÇÃO */}
