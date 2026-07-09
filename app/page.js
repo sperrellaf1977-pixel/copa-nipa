@@ -124,7 +124,7 @@ export default async function Home() {
           <div className="mb-6 flex justify-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-2">
               <span className="h-2 w-2 rounded-full bg-orange-500" />
-              <span className="text-sm font-semibold text-orange-400">Copa Nipa 2026 • 6 times • 8 sábados • Barra da Tijuca</span>
+              <span className="text-sm font-semibold text-orange-400">Copa Nipa 2026 • 6 times • 01/ago a 26/set • Barra da Tijuca</span>
             </div>
           </div>
 
