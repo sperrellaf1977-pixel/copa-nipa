@@ -1,6 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
 import RegistrationForm from "../components/RegistrationForm";
-import MatchRow from "../components/MatchRow";
 
 async function getData() {
   const supabase = createClient(
@@ -168,19 +167,35 @@ export default async function Home() {
             const stages = [...new Set(matches.map(m => m.stage))];
             return stages.map(stage => {
               const stageMatches = matches.filter(m => m.stage === stage);
-              const date = stageMatches[0]?.match_date || "";
-              const isFinal = stage === "Final" || stage === "Grande Final";
+              const isFinal = stage === "Grande Final";
+              const isSpecial = isFinal || stage === "Semifinal" || stage === "2ª Fase";
+              const fullDate = stageMatches[0]?.match_date || "";
+              const datePart = fullDate.includes("•") ? fullDate.split("•")[0].trim() : fullDate;
               return (
-                <div key={stage} className="mb-10">
-                  <div className={`mb-3 flex items-center gap-3 rounded-xl px-5 py-3 ${isFinal ? "bg-orange-500/10 border border-orange-500/20" : "bg-white/[0.05] border border-white/10"}`}>
-                    <span className={`text-base font-black uppercase tracking-widest ${isFinal ? "text-orange-400" : "text-white"}`}>{stage}</span>
-                    <div className="h-px flex-1 bg-white/10" />
-                    <span className="text-sm text-white/50">{date}</span>
-                  </div>
-                  <div className="overflow-hidden rounded-xl border border-white/7 bg-white/[0.02]">
-                    {stageMatches.map((match, i) => {
-                      return <MatchRow key={match.id} match={match} isFirst={i === 0} />;
-                    })}
+                <div key={stage} className="mb-6">
+                  <div className={`rounded-2xl overflow-hidden border-2 ${isFinal ? "border-orange-500/60" : isSpecial ? "border-orange-500/30" : "border-white/10"}`}>
+                    <div className={`flex items-center justify-between px-5 py-3 ${isFinal ? "bg-orange-500/20" : isSpecial ? "bg-orange-500/10" : "bg-white/[0.05]"}`}>
+                      <span className={`text-sm font-black uppercase tracking-widest ${isSpecial ? "text-orange-400" : "text-white"}`}>{stage}</span>
+                      <span className="text-xs font-semibold text-white/50">{datePart}</span>
+                    </div>
+                    <div className="bg-white/[0.01]">
+                      {stageMatches.map((match, i) => {
+                        const ht = getTeam(match.home_team);
+                        const at = getTeam(match.away_team);
+                        const done = match.status === "Finalizado";
+                        const score = match.home_score !== null && match.away_score !== null
+                          ? `${match.home_score} — ${match.away_score}` : "x";
+                        const horario = match.match_date && match.match_date.includes("•") ? match.match_date.split("•")[1].trim() : "";
+                        return (
+                          <div key={match.id} style={{display:"grid", gridTemplateColumns:"64px 1fr auto 1fr", alignItems:"center", gap:"8px", padding:"8px 16px", borderTop: i > 0 ? "1px solid rgba(255,255,255,0.05)" : "none"}}>
+                            <span style={{fontSize:"12px", fontWeight:"700", color:"rgba(249,115,22,0.8)", textAlign:"center"}}>{horario}</span>
+                            <span className={`rounded-lg px-3 py-1.5 text-sm font-bold text-center border ${ht.bg} ${ht.border} ${ht.text}`}>{match.home_team}</span>
+                            <span className={`min-w-[44px] text-center text-base font-black ${done ? "text-orange-400" : "text-white/25"}`}>{score}</span>
+                            <span className={`rounded-lg px-3 py-1.5 text-sm font-bold text-center border ${at.bg} ${at.border} ${at.text}`}>{match.away_team}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
               );
