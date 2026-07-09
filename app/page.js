@@ -171,11 +171,11 @@ export default async function Home() {
               const date = stageMatches[0]?.match_date || "";
               const isFinal = stage === "Final" || stage === "Grande Final";
               return (
-                <div key={stage} className="mb-5">
-                  <div className={`mb-2 flex items-center gap-3 rounded-xl px-4 py-2.5 ${isFinal ? "bg-orange-500/10 border border-orange-500/20" : "bg-white/[0.03]"}`}>
-                    <span className={`text-sm font-black uppercase tracking-wide ${isFinal ? "text-orange-400" : "text-white"}`}>{stage}</span>
+                <div key={stage} className="mb-10">
+                  <div className={`mb-3 flex items-center gap-3 rounded-xl px-5 py-3 ${isFinal ? "bg-orange-500/10 border border-orange-500/20" : "bg-white/[0.05] border border-white/10"}`}>
+                    <span className={`text-base font-black uppercase tracking-widest ${isFinal ? "text-orange-400" : "text-white"}`}>{stage}</span>
                     <div className="h-px flex-1 bg-white/10" />
-                    <span className="text-xs text-white/40">{date}</span>
+                    <span className="text-sm text-white/50">{date}</span>
                   </div>
                   <div className="overflow-hidden rounded-xl border border-white/7 bg-white/[0.02]">
                     {stageMatches.map((match, i) => {
