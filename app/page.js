@@ -310,7 +310,7 @@ export default async function Home() {
             <h2 className="mt-2 text-3xl font-black tracking-tight">Regulamento Oficial</h2>
           </div>
           <div className="overflow-hidden rounded-2xl border border-white/7">
-            <img src="/regulamento.jpeg" alt="Regulamento Copa Nova Ipanema 2026" className="w-full object-contain" />
+            <img src="/regulamento_final_v1.jpeg" alt="Regulamento Copa Nova Ipanema 2026" className="w-full object-contain" />
           </div>
         </section>
 
