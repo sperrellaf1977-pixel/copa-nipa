@@ -33,7 +33,7 @@ async function sbDelete(table, id) {
   return res;
 }
 
-const TABS = ["Inscrições", "Resultados", "Galeria", "Times"];
+const TABS = ["Inscrições", "Resultados", "Galeria", "Times", "Artilheiros"];
 
 export default function AdminPage() {
   const [tab, setTab] = useState("Inscrições");
@@ -64,6 +64,7 @@ export default function AdminPage() {
         {tab === "Resultados" && <TabResultados />}
         {tab === "Galeria" && <TabGaleria />}
         {tab === "Times" && <TabTimes />}
+        {tab === "Artilheiros" && <TabArtilheiros />}
       </div>
     </div>
   );
@@ -592,6 +593,129 @@ function TabTimes() {
               </div>
             ))}
           </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── ABA: ARTILHEIROS ───────────────────────────────
+function TabArtilheiros() {
+  const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  const teams = ["Five Stars","Coco Bambu","Grupo Rão","Ogro Steaks","Bittencourt Sports","Mitre"];
+  const [scorers, setScorers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [form, setForm] = useState({ player_name: "", nickname: "", team: "", goals: 1 });
+  const [saving, setSaving] = useState(false);
+  const [msg, setMsg] = useState("");
+
+  async function load() {
+    setLoading(true);
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/scorers?select=*&order=goals.desc`, {
+      headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` }
+    });
+    const data = await res.json();
+    setScorers(Array.isArray(data) ? data : []);
+    setLoading(false);
+  }
+
+  useEffect(() => { load(); }, []);
+
+  async function addScorer() {
+    if (!form.player_name || !form.team) return;
+    setSaving(true);
+    await fetch(`${SUPABASE_URL}/rest/v1/scorers`, {
+      method: "POST",
+      headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}`, "Content-Type": "application/json", Prefer: "return=minimal" },
+      body: JSON.stringify({ player_name: form.player_name, nickname: form.nickname, team: form.team, goals: Number(form.goals) })
+    });
+    setForm({ player_name: "", nickname: "", team: "", goals: 1 });
+    setMsg("Artilheiro adicionado!");
+    setSaving(false);
+    load();
+  }
+
+  async function updateGoals(scorer, delta) {
+    const newGoals = Math.max(0, scorer.goals + delta);
+    await fetch(`${SUPABASE_URL}/rest/v1/scorers?id=eq.${scorer.id}`, {
+      method: "PATCH",
+      headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}`, "Content-Type": "application/json", Prefer: "return=minimal" },
+      body: JSON.stringify({ goals: newGoals })
+    });
+    load();
+  }
+
+  async function deleteScorer(id) {
+    if (!confirm("Remover artilheiro?")) return;
+    await fetch(`${SUPABASE_URL}/rest/v1/scorers?id=eq.${id}`, {
+      method: "DELETE",
+      headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` }
+    });
+    load();
+  }
+
+  return (
+    <div>
+      {/* Formulário para adicionar */}
+      <div className="mb-6 rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+        <h3 className="mb-4 font-bold">Adicionar artilheiro</h3>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <input
+            value={form.player_name} onChange={e => setForm({...form, player_name: e.target.value})}
+            placeholder="Nome do jogador"
+            className="rounded-xl border border-white/10 bg-black/20 px-3 py-2.5 text-sm outline-none placeholder:text-white/30"
+          />
+          <input
+            value={form.nickname} onChange={e => setForm({...form, nickname: e.target.value})}
+            placeholder="Apelido (opcional)"
+            className="rounded-xl border border-white/10 bg-black/20 px-3 py-2.5 text-sm outline-none placeholder:text-white/30"
+          />
+          <select
+            value={form.team} onChange={e => setForm({...form, team: e.target.value})}
+            className="rounded-xl border border-white/10 bg-black/20 px-3 py-2.5 text-sm outline-none"
+          >
+            <option value="">Selecione o time</option>
+            {teams.map(t => <option key={t}>{t}</option>)}
+          </select>
+          <input
+            type="number" min="1" value={form.goals} onChange={e => setForm({...form, goals: e.target.value})}
+            placeholder="Gols"
+            className="rounded-xl border border-white/10 bg-black/20 px-3 py-2.5 text-sm outline-none"
+          />
+        </div>
+        <button
+          onClick={addScorer} disabled={saving || !form.player_name || !form.team}
+          className="mt-3 rounded-xl bg-orange-500 px-6 py-2.5 text-sm font-semibold text-white disabled:opacity-50"
+        >
+          {saving ? "Salvando..." : "Adicionar"}
+        </button>
+        {msg && <p className="mt-2 text-sm text-green-400">{msg}</p>}
+      </div>
+
+      {/* Lista de artilheiros */}
+      <h3 className="mb-4 font-bold">Ranking ({scorers.length} jogadores)</h3>
+      {loading ? <p className="text-white/40">Carregando...</p> : (
+        <div className="grid gap-3">
+          {scorers.map((s, i) => (
+            <div key={s.id} className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3">
+              <div className="flex items-center gap-4">
+                <span className={`text-lg font-black ${i === 0 ? "text-orange-400" : "text-white/30"}`}>{i+1}</span>
+                <div>
+                  <div className="font-bold">{s.player_name} {s.nickname && <span className="text-sm text-white/50">"{s.nickname}"</span>}</div>
+                  <div className="text-sm text-white/50">{s.team}</div>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <button onClick={() => updateGoals(s, -1)} className="rounded-lg border border-white/10 px-2.5 py-1 text-sm font-bold text-white/50 hover:bg-white/5">−</button>
+                <span className="rounded-full bg-orange-500/20 px-4 py-1 text-base font-black text-orange-400">⚽ {s.goals}</span>
+                <button onClick={() => updateGoals(s, 1)} className="rounded-lg border border-orange-500/30 px-2.5 py-1 text-sm font-bold text-orange-400 hover:bg-orange-500/10">+</button>
+                <button onClick={() => deleteScorer(s.id)} className="rounded-lg border border-red-500/20 px-2.5 py-1 text-xs text-red-400 hover:bg-red-500/10">🗑️</button>
+              </div>
+            </div>
+          ))}
+          {scorers.length === 0 && <p className="text-white/40">Nenhum artilheiro cadastrado ainda.</p>}
         </div>
       )}
     </div>
