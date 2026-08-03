@@ -6,11 +6,12 @@ async function getData() {
     process.env.NEXT_PUBLIC_SUPABASE_URL,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   );
-  const [{ data: matches }, { data: gallery }] = await Promise.all([
+  const [{ data: matches }, { data: gallery }, { data: scorers }] = await Promise.all([
     supabase.from("matches").select("*").order("id", { ascending: true }),
     supabase.from("gallery").select("*").order("created_at", { ascending: false }),
+    supabase.from("scorers").select("*").order("goals", { ascending: false }),
   ]);
-  return { matches: matches || [], gallery: gallery || [] };
+  return { matches: matches || [], gallery: gallery || [], scorers: scorers || [] };
 }
 
 function calcStandings(matches) {
@@ -66,7 +67,7 @@ const allSponsors = [
 export const revalidate = 0;
 
 export default async function Home() {
-  const { matches, gallery } = await getData();
+  const { matches, gallery, scorers } = await getData();
   const standings = calcStandings(matches);
   const whatsappLink = "https://wa.me/5521993405995";
 
@@ -94,7 +95,7 @@ export default async function Home() {
               </div>
             </div>
             <div className="flex flex-wrap gap-2">
-              {[["jogos","Jogos"],["classificacao","Classificação"],["premiacoes","Premiações"],["galeria","Galeria"],["regulamento","Regulamento"],["inscricao","Inscrição"],["patrocinadores","Patrocinadores"]].map(([id, label]) => (
+              {[["jogos","Jogos"],["classificacao","Classificação"],["artilheiros","Artilheiros"],["premiacoes","Premiações"],["galeria","Galeria"],["regulamento","Regulamento"],["inscricao","Inscrição"],["patrocinadores","Patrocinadores"]].map(([id, label]) => (
                 <a key={id} href={`#${id}`} className="rounded-full border border-white/10 px-4 py-2 text-sm text-white/60 transition hover:border-orange-500/40 hover:text-white">
                   {label}
                 </a>
@@ -240,6 +241,46 @@ export default async function Home() {
             </table>
           </div>
           <p className="mt-3 text-sm text-white/30">Os 4 primeiros avançam para as semifinais.</p>
+        </section>
+
+        {/* ARTILHEIROS */}
+        <section id="artilheiros" className="mb-20">
+          <div className="mb-8">
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-orange-500/70">Artilheiros</p>
+            <h2 className="mt-2 text-3xl font-black tracking-tight">Ranking de gols</h2>
+          </div>
+          {scorers.length === 0 ? (
+            <div className="rounded-2xl border border-white/7 bg-white/[0.02] p-8 text-center text-white/40 italic">
+              Nenhum gol registrado ainda.
+            </div>
+          ) : (
+            <div className="overflow-hidden rounded-2xl border border-white/7 bg-white/[0.02]">
+              <table className="w-full text-left text-sm">
+                <thead className="border-b border-orange-500/15 bg-orange-500/[0.05]">
+                  <tr>
+                    {["#","Jogador","Apelido","Time","Gols"].map((h) => (
+                      <th key={h} className="px-4 py-4 text-xs font-bold uppercase tracking-wider text-orange-500/60">{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {scorers.map((s, i) => (
+                    <tr key={s.id} className={`border-t border-white/[0.04] ${i === 0 ? "bg-orange-500/[0.05]" : ""}`}>
+                      <td className={`px-4 py-3 font-bold ${i === 0 ? "text-orange-400" : "text-white/40"}`}>{i + 1}</td>
+                      <td className="px-4 py-3 font-semibold">{s.player_name}</td>
+                      <td className="px-4 py-3 text-white/50">{s.nickname || "—"}</td>
+                      <td className="px-4 py-3 text-white/70">{s.team}</td>
+                      <td className="px-4 py-3">
+                        <span className="rounded-full bg-orange-500/20 px-3 py-1 text-sm font-black text-orange-400">
+                          ⚽ {s.goals}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </section>
 
         {/* PREMIAÇÕES */}
